@@ -1,11 +1,13 @@
 Package: SmokyScotch
 Type: Package
-Title: What the Package Does (Title Case)
+Title: I like Scotch and R
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Kevin Y.X. Wang
+Maintainer: Kevin Y.X. Wang <kevin.wang@sydney.edu.au>
+Description: Some functions that I have for my own research.
+License: Open
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1.9000
+Imports: 
+  dplyr

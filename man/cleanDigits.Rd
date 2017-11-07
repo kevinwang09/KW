@@ -17,10 +17,3 @@ A data frame with less digits
 \description{
 Add together two numbers
 }
-\examples{
-cleanDigits(mtcars, 1)
-
-
-
-
-}

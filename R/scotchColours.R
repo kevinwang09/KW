@@ -6,7 +6,7 @@
 scotchColour = function(stata){
   set1Colours = RColorBrewer::brewer.pal(9, "Set1")
   set1Colours[5] = "#F78B40"
-  set1Colours[6] = "#F9CB34"
+  set1Colours[6] = "#F2E600"
   set1Colours[9] = "#666666"
 
   # if (n <= 9){

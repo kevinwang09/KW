@@ -11,8 +11,9 @@ LazyData: true
 RoxygenNote: 6.0.1.9000
 Imports: 
   dplyr,
-  magrittr,
-  tidyr,
-  tibble,
   ggplot2,
-  RColorBrewer
+  magrittr,
+  RColorBrewer,
+  tidyr,
+  tibble
+  

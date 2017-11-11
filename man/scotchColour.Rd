@@ -4,21 +4,17 @@
 \alias{scotchColour}
 \title{Better colour palette than Set 1 from library(RColorBrewer)}
 \usage{
-scotchColour(n)
+scotchColour()
 }
 \arguments{
 \item{n}{The number of colours needed from Set 1 from library(RColorBrewer)}
+}
+\value{
+Returns a function of colours
 }
 \description{
 Better colour palette than Set 1 from library(RColorBrewer)
 }
 \examples{
-df = data.frame(
-x = rnorm(100),
-y = rnorm(100),
-colour = factor(1:10))
-ggplot(df, aes(x = x, y = y, colour = colour)) +
-geom_point() +
-scale_colour_manual(values = scotchColour(n = df$colour \%>\% unique \%>\% length))
-
+show_col(scotchColour()(10))
 }

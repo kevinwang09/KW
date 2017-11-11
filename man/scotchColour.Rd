@@ -4,7 +4,7 @@
 \alias{scotchColour}
 \title{Better colour palette than Set 1 from library(RColorBrewer)}
 \usage{
-scotchColour()
+scotchColour(stata)
 }
 \arguments{
 \item{n}{The number of colours needed from Set 1 from library(RColorBrewer)}
@@ -16,5 +16,5 @@ Returns a function of colours
 Better colour palette than Set 1 from library(RColorBrewer)
 }
 \examples{
-show_col(scotchColour()(10))
+scales::show_col(scotchColour()(10))
 }

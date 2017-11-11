@@ -2,10 +2,10 @@
 #' @title Better colour palette than Set 1 from library(RColorBrewer)
 #' @return Returns a function of colours
 #' @examples
-#' show_col(scotchColour()(10))
-scotchColour = function(){
+#' scales::show_col(scotchColour()(10))
+scotchColour = function(stata){
   set1Colours = RColorBrewer::brewer.pal(9, "Set1")
-  set1Colours[6] = "#FFFF33"
+  set1Colours[6] = "#FFC200"
   set1Colours[9] = "#666666"
 
   # if (n <= 9){

@@ -4,7 +4,7 @@
 \alias{scale_colour_scotch}
 \title{Scotch colours.}
 \usage{
-scale_colour_scotch(n = n, ...)
+scale_colour_scotch(stata = FALSE, ...)
 }
 \arguments{
 \item{n}{The number of colours}

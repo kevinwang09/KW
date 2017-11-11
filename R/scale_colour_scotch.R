@@ -10,11 +10,11 @@
 #' geom_point()
 #' p + scale_colour_scotch()
 #'
-scale_colour_scotch = function (n = n, ...)
+scale_colour_scotch = function (stata = FALSE, ...)
 {
   discrete_scale(aesthetics = "colour",
                  scale_name = "scotch",
-                 palette = SmokyScotch::scotchColour(n = n),
+                 palette = SmokyScotch::scotchColour(stata = stata),
                  ...)
 }
 

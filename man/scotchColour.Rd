@@ -12,9 +12,6 @@ scotchColour(stata)
 \value{
 Returns a function of colours
 }
-\description{
-Better colour palette than Set 1 from library(RColorBrewer)
-}
 \examples{
 scales::show_col(scotchColour()(10))
 }

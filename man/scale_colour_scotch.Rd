@@ -12,9 +12,6 @@ scale_colour_scotch(stata = FALSE, ...)
 \value{
 ggproto object
 }
-\description{
-Scotch colours.
-}
 \examples{
 df = data.frame(
 x = rnorm(100),

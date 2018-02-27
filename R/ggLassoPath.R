@@ -4,7 +4,6 @@
     ggLassoPath = function(lassoObj, colour){
 
     stopifnot(length(colour) == nrow(lassoObj$beta))
-    stopifnot(is.logical(colour))
 
     lassoPlotdf = base::data.frame(lassoObj$beta %>% as.matrix,
                                     colour = colour) %>%

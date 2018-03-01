@@ -1,7 +1,7 @@
 Package: SmokyScotch
 Type: Package
 Title: I like Scotch and R
-Version: 0.1.0
+Version: 0.2.0
 Author: Kevin Y.X. Wang
 Maintainer: Kevin Y.X. Wang <kevin.wang@sydney.edu.au>
 Description: Some functions that I have for my own research.
@@ -16,8 +16,8 @@ Imports:
   ggplot2,
   magrittr,
   RColorBrewer,
+  parallel,
   reshape2,
   scales,
   tidyr,
   tibble
-  

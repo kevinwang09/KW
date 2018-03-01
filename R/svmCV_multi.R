@@ -1,0 +1,30 @@
+#' Performing CV using svm, allowing multiple cores
+#' @param cvObj outputs of the cvPartition function
+#' @examples
+#'
+#' x = iris[50:150, -5]
+# y = iris[50:150, 5] %>% as.factor
+# tmp2 = svmCV_multi(x = x, y = y,
+#                    nFolds = 5, nExp = 100, cores = 1)
+#
+# purrr::map_dbl(tmp2, "svmMeanError")
+
+
+svmCV_multi = function(x, y,
+                       nFolds,
+                       nExp,
+                       cores = 1){
+
+  listDataPartitions = replicate(nExp,
+                                 {cvPartition(x = x, y = y, nFolds = 5)},
+                                           simplify = FALSE)
+  names(listDataPartitions) = paste0("exp", seq_len(nExp))
+
+
+  if (cores == 1){
+    listPrediction = lapply(listDataPartitions, svmCV)
+  } else {
+    listPrediction = parallel::mclapply(listDataPartitions, svmCV, mc.cores = cores)
+  }
+  return(listPrediction)
+}

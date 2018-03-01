@@ -12,13 +12,3 @@ svmCV(cvObj)
 \description{
 Performing CV using svm
 }
-\examples{
-x = iris[1:100, -5]
-y = 2*(iris[1:100, 5] \%>\% as.factor \%>\% as.integer()) - 3L
-s = sample(1:100)
-x = x[s,]
-y = y[s]
-tmp = cvPartition(x = x, y = y, nFolds = 5)
-str(tmp)
-table(pred = svmCV(tmp)$svmPredictOrderedVector, y)
-}

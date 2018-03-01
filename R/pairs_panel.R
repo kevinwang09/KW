@@ -1,8 +1,10 @@
-#' @param data
-#' @param subset
-#' @example
-#'subset = sample(c(TRUE,FALSE), 150, replace = TRUE)
-#'pairs_cor(iris[,-5], subset = subset)
+#' A better pairs plot function
+#'
+#' @param data a data frame
+#' @param subset A subsetting index
+#' @examples
+#' subset = sample(c(TRUE,FALSE), 150, replace = TRUE)
+#' pairs_cor(iris[,-5], subset = subset)
 
 panel.cor <- function(x, y, subset)
 {

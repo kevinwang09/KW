@@ -1,3 +1,4 @@
+#' Calculate samplwise correlation
 #' @param x a matrix
 #' @param y a matrix, potentially has more columns than x
 #' @param method See methods in cor

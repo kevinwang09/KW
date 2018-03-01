@@ -2,7 +2,7 @@
 % Please edit documentation in R/pcaPlot.R
 \name{pcaPlot}
 \alias{pcaPlot}
-\title{Add together two numbers}
+\title{Plotting PCA via a prcomp object}
 \usage{
 pcaPlot(pcaObj, obsData, colVar, ellipse = F, topFeatures = 5, arrows = F,
   label.size = 2)
@@ -26,5 +26,5 @@ pcaPlot(pcaObj, obsData, colVar, ellipse = F, topFeatures = 5, arrows = F,
 A ggplot
 }
 \description{
-Add together two numbers
+Plotting PCA via a prcomp object
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/cleanDigits.R
 \name{cleanDigits}
 \alias{cleanDigits}
-\title{Add together two numbers}
+\title{Clean the digits in a data frame}
 \usage{
 cleanDigits(df, sig = 2)
 }
@@ -15,5 +15,5 @@ cleanDigits(df, sig = 2)
 A data frame with less digits
 }
 \description{
-Add together two numbers
+Clean the digits in a data frame
 }

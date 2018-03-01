@@ -1,4 +1,4 @@
-#' Add together two numbers
+#' Plotting tSNE via a Rtsne object
 #'
 #' @param RtsneObj Rtsne object
 #' @param obsData a data.frame matching the number of rows of the PCA data

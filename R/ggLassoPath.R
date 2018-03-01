@@ -1,3 +1,4 @@
+#' (gg)Plotting a Lasso object
 #' @param lassoObj is a glmnet object from the `glmnet` package
 #' @param colour is a vector that is of the same length as the number of variables fed into `lassoObj`
 #' @title ggplot for lasso path plot

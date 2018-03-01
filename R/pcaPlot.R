@@ -1,4 +1,4 @@
-#' Add together two numbers
+#' Plotting PCA via a prcomp object
 #'
 #' @param pcaObj prcomp object
 #' @param obsData a data.frame matching the number of rows of the PCA data

@@ -11,3 +11,6 @@ ggLassoPath(lassoObj, colour)
 
 \item{colour}{is a vector that is of the same length as the number of variables fed into `lassoObj`}
 }
+\description{
+(gg)Plotting a Lasso object
+}

@@ -1,4 +1,4 @@
-#' Add together two numbers
+#' Clean the digits in a data frame
 #'
 #' @param df A data frame with numbers and categorical variables
 #' @param sig Number of significant figures

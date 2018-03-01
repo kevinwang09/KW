@@ -2,7 +2,7 @@
 % Please edit documentation in R/tsnePlot.R
 \name{tsnePlot}
 \alias{tsnePlot}
-\title{Add together two numbers}
+\title{Plotting tSNE via a Rtsne object}
 \usage{
 tsnePlot(RtsneObj, obsData, colVar, ellipse = T)
 }
@@ -16,5 +16,5 @@ tsnePlot(RtsneObj, obsData, colVar, ellipse = T)
 \item{ellipse}{Should ellipse be plotted based on colVar}
 }
 \description{
-Add together two numbers
+Plotting tSNE via a Rtsne object
 }

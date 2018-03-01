@@ -29,9 +29,8 @@ panel.scatter <- function(x, y)
 }
 
 
-pairs_cor = function(data, subset = rep(TRUE, nrow(data)) ){
-  suppressWarnings(pairs(x = data,
-                         lower.panel = panel.cor,
-                         upper.panel = panel.scatter,
-                         subset = subset))
+pairs_cor = function(data){
+  pairs(x = data,
+        lower.panel = panel.cor,
+        upper.panel = panel.scatter)
 }

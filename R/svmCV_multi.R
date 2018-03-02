@@ -1,13 +1,12 @@
 #' Performing CV using svm, allowing multiple cores
 #' @param cvObj outputs of the cvPartition function
 #' @examples
+#' x = iris[50:150, -5]
+#' y = iris[50:150, 5] %>% as.factor
+#' tmp2 = svmCV_multi(x = x, y = y,
+#'                    nFolds = 5, nExp = 100, cores = 1)
 #'
-# x = iris[50:150, -5]
-# y = iris[50:150, 5] %>% as.factor
-# tmp2 = svmCV_multi(x = x, y = y,
-#                    nFolds = 5, nExp = 100, cores = 1)
-#
-# purrr::map_dbl(tmp2, "svmMeanError")
+#' purrr::map_dbl(tmp2, "svmMeanError")
 
 
 svmCV_multi = function(x, y,

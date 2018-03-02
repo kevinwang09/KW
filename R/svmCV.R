@@ -1,11 +1,10 @@
 #' Performing CV using svm
 #' @param cvObj outputs of the cvPartition function
 #' @examples
-# x = iris[50:150, -5]
-# y = iris[50:150, 5] %>% as.factor
-# tmp = cvPartition(x = x, y = y, nFolds = 5)
-# str(tmp)
-# table(pred = svmCV(tmp)$svmPredictOrderedVector, y)
+#' x = iris[50:150, -5]
+#' y = iris[50:150, 5] %>% as.factor
+#' cvp = cvPartition(x = x, y = y, nFolds = 5)
+#' table(pred = svmCV(cvp)$svmPredictOrderedVector, y)
 
 
 svmCV = function(cvObj){

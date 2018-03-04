@@ -12,3 +12,9 @@ svmCV(cvObj)
 \description{
 Performing CV using svm
 }
+\examples{
+x = iris[50:150, -5]
+y = iris[50:150, 5] \%>\% as.factor
+cvp = cvPartition(x = x, y = y, nFolds = 5)
+table(pred = svmCV(cvp)$svmPredictOrderedVector, y)
+}

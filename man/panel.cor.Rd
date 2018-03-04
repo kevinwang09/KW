@@ -4,17 +4,16 @@
 \alias{panel.cor}
 \title{A better pairs plot function}
 \usage{
-panel.cor(x, y, subset)
+panel.cor(x, y)
 }
 \arguments{
-\item{subset}{A subsetting index}
-
 \item{data}{a data frame}
+
+\item{subset}{A subsetting index}
 }
 \description{
 A better pairs plot function
 }
 \examples{
-subset = sample(c(TRUE,FALSE), 150, replace = TRUE)
-pairs_cor(iris[,-5], subset = subset)
+pairs_cor(iris[,-5])
 }

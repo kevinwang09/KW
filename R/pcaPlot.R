@@ -7,6 +7,8 @@
 #' @param topFeatures Number of original variables most associated with each of the PCs
 #' @param arrows Should arrows be plotted
 #' @param label.size Size of the label for the arrows
+#' @import ggplot2
+#' @import dplyr
 #' @return A ggplot
 #'
 #'

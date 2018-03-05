@@ -2,6 +2,7 @@
 #'
 #' @param df A data frame with numbers and categorical variables
 #' @param sig Number of significant figures
+#' @import dplyr
 #' @return A data frame with less digits
 #'
 #'

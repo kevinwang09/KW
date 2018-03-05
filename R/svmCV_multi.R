@@ -1,5 +1,6 @@
 #' Performing CV using svm, allowing multiple cores
 #' @param cvObj outputs of the cvPartition function
+#' @import parallel
 #' @examples
 #' x = iris[50:150, -5]
 #' y = iris[50:150, 5] %>% as.factor

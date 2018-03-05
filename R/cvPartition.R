@@ -1,6 +1,8 @@
 #' Creating CV data partition
 #' @param x x should be a matrix without rownames
 #' @param y y should be true labels
+#' @import caret
+#' @examples
 #' x = iris[50:150, -5]
 #' y = iris[50:150, 5] %>% as.factor
 #' cvp = cvPartition(x = x, y = y, nFolds = 5)

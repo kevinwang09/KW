@@ -15,8 +15,8 @@ cvPartition(x, y, nFolds)
 Creating CV data partition
 }
 \examples{
-x = iris[50:150, -5]
-y = iris[50:150, 5] \%>\% as.factor
+x = iris[51:150, -5]
+y = iris[51:150, 5] \%>\% as.factor
 cvp = cvPartition(x = x, y = y, nFolds = 5)
 str(cvp)
 }

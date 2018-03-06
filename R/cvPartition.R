@@ -2,6 +2,7 @@
 #' @param x x should be a matrix without rownames
 #' @param y y should be true labels
 #' @importFrom caret createFolds
+#' @importFrom magrittr %>%
 #' @examples
 #' x = iris[51:150, -5]
 #' y = iris[51:150, 5] %>% as.factor

@@ -4,7 +4,7 @@
 \alias{namedVector2Df}
 \title{Convert a named vector into a data.frame}
 \usage{
-namedVector2Df(vec, names = names("variable", "value"))
+namedVector2Df(vec, variable.name = "variable", value.name = "value")
 }
 \arguments{
 \item{vec}{A named vector}

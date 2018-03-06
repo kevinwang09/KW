@@ -1,6 +1,7 @@
 #' @param n The number of colours needed from Set 1 from library(RColorBrewer)
 #' @title Better colour palette than Set 1 from library(RColorBrewer)
 #' @return Returns a function of colours
+#' @export
 #' @examples
 #' scales::show_col(scotchColour()(10))
 scotchColour = function(stata){

@@ -2,6 +2,7 @@
 #'
 #' @param data a data frame
 #' @param subset A subsetting index
+#' @export
 #' @examples
 #' pairs_cor(iris[,-5])
 

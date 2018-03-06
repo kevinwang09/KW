@@ -4,6 +4,7 @@
 #' @param obsData a data.frame matching the number of rows of the PCA data
 #' @param colVar Character vector corresponding to one of the columns of obsData
 #' @param ellipse Should ellipse be plotted based on colVar
+#' @export
 #'
 tsnePlot = function(RtsneObj, obsData, colVar,
                     ellipse = T){

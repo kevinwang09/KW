@@ -13,8 +13,8 @@ svmCV_multi(x, y, nFolds, nExp, cores = 1)
 Performing CV using svm, allowing multiple cores
 }
 \examples{
-x = iris[50:150, -5]
-y = iris[50:150, 5] \%>\% as.factor
+x = iris[51:150, -5]
+y = iris[51:150, 5] \%>\% as.factor
 tmp2 = svmCV_multi(x = x, y = y,
                    nFolds = 5, nExp = 100, cores = 1)
 

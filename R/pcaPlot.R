@@ -9,6 +9,7 @@
 #' @param label.size Size of the label for the arrows
 #' @import ggplot2
 #' @import dplyr
+#' @export
 #' @return A ggplot
 #'
 #'

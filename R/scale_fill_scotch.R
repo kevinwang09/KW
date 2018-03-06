@@ -1,6 +1,7 @@
 #' @title Scotch colours.
 #' @param n The number of colours
 #' @return ggproto object
+#' @export
 #' @examples
 #' df = data.frame(
 #' x = rnorm(100),

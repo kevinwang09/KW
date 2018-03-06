@@ -2,6 +2,7 @@
 #' @param x a matrix
 #' @param y a matrix, potentially has more columns than x
 #' @param method See methods in cor
+#' @export
 
 samplewiseCor = function(x, y, method = "pearson"){
   reduceX = as.data.frame(x)

@@ -17,6 +17,7 @@ Imports:
   magrittr,
   RColorBrewer,
   parallel,
+  purrr,
   reshape2,
   scales,
   tidyr,

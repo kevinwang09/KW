@@ -2,6 +2,7 @@
 
 export(binaryClassScores)
 export(cleanDigits)
+export(clean_names_char)
 export(compareBinaryClassResults)
 export(cvPartition)
 export(namedVector2Df)

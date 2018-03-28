@@ -4,7 +4,7 @@
 \alias{topView}
 \title{Display the first k rows and first k columns of the data}
 \usage{
-topView(x, k)
+topView(x, k = 6)
 }
 \arguments{
 \item{x}{data.frame}

@@ -4,7 +4,9 @@
 \alias{clean_names_char}
 \title{Clean a character vector in the same algorithm as janitor::clean_names}
 \usage{
-clean_names_char(x)
+clean_names_char(x, case = c("snake", "lower_camel", "upper_camel",
+  "screaming_snake", "lower_upper", "upper_lower", "all_caps", "small_camel",
+  "big_camel", "old_janitor", "parsed", "mixed"))
 }
 \arguments{
 \item{x}{a character vector}

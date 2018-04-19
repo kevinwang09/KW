@@ -23,7 +23,7 @@ plotlm = function(x, y, se = FALSE){
     geom_smooth(method = "lm", se = se) +
     labs(title = coefExpression,
          subtitle = paste0("Correlation = ", signif(cor(x, y), 3),
-                           "R2 = ", signif(cor(x, y)^2, 3)
+                           ", R2 = ", signif(cor(x, y)^2, 3)
                            ),
          caption = paste0("Slope Pvalue = ", signif(slopePvalue, 3))
          )

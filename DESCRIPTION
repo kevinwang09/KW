@@ -1,11 +1,11 @@
 Package: SmokyScotch
 Type: Package
 Title: I like Scotch and R
-Version: 0.5.1
+Version: 0.5.2
 Author: Kevin Y.X. Wang
 Maintainer: Kevin Y.X. Wang <kevin.wang@sydney.edu.au>
 Description: Some functions that I have for my own research.
-License: Do not distribute outside of Kevin 
+License: Do not distribute outside of Kevin Wang's laptop
 Encoding: UTF-8
 LazyData: true
 Imports:

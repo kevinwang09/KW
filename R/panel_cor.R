@@ -13,7 +13,7 @@ panel_cor <- function(x, y)
   r <- cor(x, y, method ="pearson")
   txt <- format(c(r, 0.123456789), digits = 3)[1]
   # if(all(subset)){
-    text(0.5, 0.25, paste("Corr=",txt), cex = 2)
+    text(0.5, 0.25, paste("",txt), cex = 2)
   # } else {
   #   text(0.5, 0.25, paste("subset Corr=",txt), cex = 2)
   # }

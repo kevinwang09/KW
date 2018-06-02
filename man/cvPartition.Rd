@@ -4,7 +4,7 @@
 \alias{cvPartition}
 \title{Creating CV data partition}
 \usage{
-cvPartition(x, y, nFolds, seed = NULL)
+cvPartition(x, y, nFolds)
 }
 \arguments{
 \item{x}{x should be a matrix without rownames}

@@ -14,18 +14,11 @@
 svmCV_multi = function(x, y,
                        nFolds,
                        nExp,
-                       cores = 1,
-                       seed = NULL){
+                       cores = 1){
 
-  if(is.null(seed)){
     listDataPartitions = replicate(nExp,
                                    {cvPartition(x = x, y = y, nFolds = 5)},
                                    simplify = FALSE)
-  } else {
-    listDataPartitions = replicate(nExp,
-                                   {cvPartition(x = x, y = y, nFolds = 5, seed = seed)},
-                                   simplify = FALSE)
-  }
 
   names(listDataPartitions) = paste0("exp", seq_len(nExp))
 

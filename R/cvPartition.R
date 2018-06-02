@@ -8,18 +8,12 @@
 #' y = iris[51:150, 5] %>% as.factor
 #' cvp = cvPartition(x = x, y = y, nFolds = 5)
 #' str(cvp)
-cvPartition = function(x, y, nFolds, seed = NULL){
+cvPartition = function(x, y, nFolds){
 
   n = length(y) ## The number of observations
   obsNum = paste0("obs", seq_len(n))
   rownames(x) = obsNum
   names(y) = obsNum
-
-  if(is.null(seed)){
-    set.seed(sample(1:1e6, 1))
-  } else {
-    set.seed(seed)
-  }
 
   testIndex = caret::createFolds(y, k = nFolds) ## Creating test index
   trainIndex = lapply(testIndex, function(i){(1:n)[-i]}) ## The train index is mutually exclusive to the test index

@@ -4,7 +4,7 @@
 \alias{svmCV_multi}
 \title{Performing CV using svm, allowing multiple cores}
 \usage{
-svmCV_multi(x, y, nFolds, nExp, cores = 1, seed = NULL)
+svmCV_multi(x, y, nFolds, nExp, cores = 1)
 }
 \arguments{
 \item{cvObj}{outputs of the cvPartition function}

@@ -11,6 +11,7 @@
 cvPartition = function(x, y, nFolds){
 
   n = length(y) ## The number of observations
+
   obsNum = paste0("obs", seq_len(n))
   rownames(x) = obsNum
   names(y) = obsNum

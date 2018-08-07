@@ -24,7 +24,8 @@ Performing CV using random forest, allowing multiple cores
 x = iris[51:150, -5]
 y = iris[51:150, 5] \%>\% as.factor
 tmp2 = rfCV_multi(x = x, y = y,
-                   nFolds = 5, nExp = 100, cores = 1)
+                   nFolds = 5, nExp = 100, cores = 1, ntree = 100)
 
-purrr::map_dbl(tmp2, "svmMeanError")
+purrr::map_dbl(tmp2, "rfMeanError")
+purrr::map(tmp2, "rfVoteOrderedMatrix")
 }

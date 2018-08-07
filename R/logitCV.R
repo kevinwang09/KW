@@ -34,12 +34,19 @@ logitCV = function(cvObj, cutoff = 0.5){
   logitMeanError = mean(logitFoldError)
 
   logitPredictBindVector = unlist(logitPredict)
+
+  logitUnorderedY = cvObj$testY
+  names(logitUnorderedY) = NULL
+  logitUnorderedY = unlist(logitUnorderedY)
+  logitOrderedY = logitUnorderedY[cvObj$originalIndex]
+
   logitPredictProbOrderedVector = logitPredictBindVector[cvObj$originalIndex]
   logitPredictIntOrderedVector = ifelse(logitPredictProbOrderedVector > cutoff, 1L, 0L)
 
 
   result = list(logitFoldError = logitFoldError,
                 logitMeanError = logitMeanError,
+                logitOrderedY = logitOrderedY,
                 # logitPredictAsVector = logitPredictAsVector,
                 logitPredictProbOrderedVector = logitPredictProbOrderedVector,
                 logitPredictIntOrderedVector = logitPredictIntOrderedVector)

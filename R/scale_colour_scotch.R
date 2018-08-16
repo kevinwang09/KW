@@ -1,5 +1,6 @@
 #' @title Scotch colours.
 #' @param n The number of colours
+#' @author Kevin Wang
 #' @return ggproto object
 #' @export
 #' @examples

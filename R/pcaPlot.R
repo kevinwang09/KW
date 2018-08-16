@@ -7,6 +7,7 @@
 #' @param topFeatures Number of original variables most associated with each of the PCs
 #' @param arrows Should arrows be plotted
 #' @param label.size Size of the label for the arrows
+#' @author Kevin Wang
 #' @import ggplot2
 #' @import dplyr
 #' @export

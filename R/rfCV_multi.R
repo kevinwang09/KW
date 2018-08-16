@@ -4,6 +4,7 @@
 #' @param nFolds number of CV folds
 #' @param nExp number of loops
 #' @param cores number of cores to perform the CV
+#' @author Kevin Wang
 #' @import parallel
 #' @export
 #' @examples

@@ -2,6 +2,7 @@
 #' @param x x vector
 #' @param y y vector
 #' @import ggplot2
+#' @author Kevin Wang
 #' @export
 #' @examples
 #' set.seed(10)

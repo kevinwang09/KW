@@ -3,6 +3,7 @@
 #' @param x a character vector
 #' @import magrittr
 #' @import snakecase
+#' @author Kevin Wang
 #' @export
 #' @return A cleaned character vector
 #'

@@ -17,3 +17,6 @@ A data frame with less digits
 \description{
 Clean the digits in a data frame
 }
+\author{
+Kevin Wang
+}

@@ -1,5 +1,6 @@
 #' Performing CV using glm(family = "binomial"), allowing multiple cores
 #' @param cvObj outputs of the cvPartition function
+#' @author Kevin Wang
 #' @import parallel
 #' @export
 #' @examples

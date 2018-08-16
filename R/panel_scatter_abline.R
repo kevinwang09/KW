@@ -1,6 +1,7 @@
 #' A better pairs plot function
 #'
 #' @param data a data frame
+#' @author Kevin Wang
 #' @export
 #' @examples
 #' pairs(iris[,-5],

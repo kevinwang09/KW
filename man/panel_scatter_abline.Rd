@@ -17,3 +17,6 @@ pairs(iris[,-5],
 lower.panel = panel_cor,
 upper.panel = panel_scatter_abline)
 }
+\author{
+Kevin Wang
+}

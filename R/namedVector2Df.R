@@ -1,5 +1,6 @@
 #' Convert a named vector into a data.frame
 #' @param vec A named vector
+#' @author Kevin Wang
 #' @export
 
 

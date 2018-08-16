@@ -17,3 +17,6 @@ table2DataFrame(x, variable.name = "variable.name",
 \description{
 Turn a table into a data frame
 }
+\author{
+Kevin Wang
+}

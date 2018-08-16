@@ -19,3 +19,6 @@ tmp2 = logitCV_multi(x = x, y = y, nFolds = 5, nExp = 10, cores = 1)
 
 purrr::map_dbl(tmp2, "logitMeanError")
 }
+\author{
+Kevin Wang
+}

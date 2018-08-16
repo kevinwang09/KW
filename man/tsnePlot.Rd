@@ -18,3 +18,6 @@ tsnePlot(RtsneObj, obsData, colVar, ellipse = T)
 \description{
 Plotting tSNE via a Rtsne object
 }
+\author{
+Kevin Wang
+}

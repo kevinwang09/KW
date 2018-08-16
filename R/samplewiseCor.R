@@ -2,6 +2,7 @@
 #' @param x a matrix
 #' @param y a matrix, potentially has more columns than x
 #' @param method See methods in cor
+#' @author Kevin Wang
 #' @export
 
 samplewiseCor = function(x, y, method = "pearson"){

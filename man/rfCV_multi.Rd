@@ -29,3 +29,6 @@ tmp2 = rfCV_multi(x = x, y = y,
 purrr::map_dbl(tmp2, "rfMeanError")
 purrr::map(tmp2, "rfVoteOrderedMatrix")
 }
+\author{
+Kevin Wang
+}

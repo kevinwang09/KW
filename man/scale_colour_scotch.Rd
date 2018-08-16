@@ -12,6 +12,9 @@ scale_colour_scotch(stata = FALSE, ...)
 \value{
 ggproto object
 }
+\description{
+Scotch colours.
+}
 \examples{
 df = data.frame(
 x = rnorm(100),
@@ -21,4 +24,7 @@ p = ggplot(df, aes(x = x, y = y, colour = colour)) +
 geom_point()
 p + scale_colour_scotch()
 
+}
+\author{
+Kevin Wang
 }

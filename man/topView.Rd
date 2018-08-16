@@ -14,3 +14,6 @@ topView(x, k = 6)
 \description{
 Display the first k rows and first k columns of the data
 }
+\author{
+Kevin Wang
+}

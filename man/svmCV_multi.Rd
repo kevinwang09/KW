@@ -20,3 +20,6 @@ tmp2 = svmCV_multi(x = x, y = y,
 
 purrr::map_dbl(tmp2, "svmMeanError")
 }
+\author{
+Kevin Wang
+}

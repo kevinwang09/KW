@@ -12,3 +12,6 @@ namedVector2Df(vec, variable.name = "variable", value.name = "value")
 \description{
 Convert a named vector into a data.frame
 }
+\author{
+Kevin Wang
+}

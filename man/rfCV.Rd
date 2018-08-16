@@ -12,3 +12,6 @@ rfCV(cvObj, ntree)
 \description{
 Performing CV using random forest
 }
+\author{
+Kevin Wang
+}

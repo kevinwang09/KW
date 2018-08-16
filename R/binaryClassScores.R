@@ -3,6 +3,7 @@
 #' @param y True labels of the observations. Ordering of y must match that of the predictMatrix.
 #' @param predictMatrix Predicted labels of the observations.
 #' @export
+#' @author Kevin Wang
 #' @examples
 #' x = iris[51:150, -5]
 #' y = as.factor(iris[51:150, 5])

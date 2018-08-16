@@ -4,8 +4,8 @@
 \alias{pcaPlot}
 \title{Plotting PCA via a prcomp object}
 \usage{
-pcaPlot(pcaObj, obsData, colVar, ellipse = F, topFeatures = 5, arrows = F,
-  label.size = 2)
+pcaPlot(pcaObj, obsData, colVar, ellipse = F, topFeatures = 5,
+  arrows = F, label.size = 2)
 }
 \arguments{
 \item{pcaObj}{prcomp object}
@@ -27,4 +27,7 @@ A ggplot
 }
 \description{
 Plotting PCA via a prcomp object
+}
+\author{
+Kevin Wang
 }

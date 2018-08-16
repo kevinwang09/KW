@@ -16,3 +16,6 @@ samplewiseCor(x, y, method = "pearson")
 \description{
 Calculate samplwise correlation
 }
+\author{
+Kevin Wang
+}

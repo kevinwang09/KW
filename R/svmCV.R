@@ -1,5 +1,6 @@
 #' Performing CV using svm
 #' @param cvObj outputs of the cvPartition function
+#' @author Kevin Wang
 #' @import purrr
 #' @import e1071
 #' @export

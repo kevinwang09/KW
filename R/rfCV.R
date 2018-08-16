@@ -1,5 +1,6 @@
 #' Performing CV using random forest
 #' @param cvObj outputs of the cvPartition function
+#' @author Kevin Wang
 #' @import purrr
 #' @import randomForest
 #' @export

@@ -19,3 +19,6 @@ cvp = cvPartition(x = x, y = y, nFolds = 5)
 table(pred = svmCV(cvp)$svmPredictOrderedVector, y)
 
 }
+\author{
+Kevin Wang
+}

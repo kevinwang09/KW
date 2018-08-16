@@ -19,3 +19,6 @@ cvObj = cvPartition(x = x, y = y, nFolds = 5)
 table(pred = logitCV(cvObj)$logitPredictIntOrderedVector, y)
 
 }
+\author{
+Kevin Wang
+}

@@ -40,3 +40,6 @@ rownames(classifierMatrix) = c("TenFold", "FiveFold")
 
 compareBinaryClassResults(y, classifierMatrix)#'
 }
+\author{
+Kevin Wang
+}

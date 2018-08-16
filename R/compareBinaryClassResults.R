@@ -5,6 +5,7 @@
 #' @import forcats
 #' @import ggplot2
 #' @import magrittr
+#' @author Kevin Wang
 #' @export
 #' @examples
 #' x = iris[51:150, -5] + rnorm(100*4)

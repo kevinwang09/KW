@@ -1,5 +1,6 @@
 #' Performing CV using glm(family = "binomial")
 #' @param cvObj outputs of the cvPartition function
+#' @author Kevin Wang
 #' @import purrr
 #' @export
 #' @examples

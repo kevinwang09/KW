@@ -2,6 +2,7 @@
 #' @param x x should be a matrix without rownames
 #' @param y y should be true labels
 #' @importFrom caret createFolds
+#' @author Kevin Wang
 #' @export
 #' @examples
 #' x = iris[51:150, -5]

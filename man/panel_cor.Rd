@@ -15,3 +15,6 @@ A better pairs plot function
 \examples{
 pairs(iris[,-5], lower.panel = panel_cor)
 }
+\author{
+Kevin Wang
+}

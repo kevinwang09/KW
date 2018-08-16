@@ -1,5 +1,6 @@
-#' @param n The number of colours needed from Set 1 from library(RColorBrewer)
 #' @title Better colour palette than Set 1 from library(RColorBrewer)
+#' @param n The number of colours needed from Set 1 from library(RColorBrewer)
+#' @author Kevin Wang
 #' @return Returns a function of colours
 #' @export
 #' @examples

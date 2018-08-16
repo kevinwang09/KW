@@ -20,3 +20,6 @@ x = rnorm(100)
 y = rnorm(100)
 plotlm(x = x, y = y)
 }
+\author{
+Kevin Wang
+}

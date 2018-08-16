@@ -25,3 +25,6 @@ predictMatrix = purrr::map(tmp2, "svmPredictOrderedVector") \%>\%
   do.call(rbind,.)
 binaryClassScores(y = y, predictMatrix = predictMatrix)
 }
+\author{
+Kevin Wang
+}

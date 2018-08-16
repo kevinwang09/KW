@@ -20,3 +20,6 @@ y = iris[51:150, 5] \%>\% as.factor
 cvp = cvPartition(x = x, y = y, nFolds = 5)
 str(cvp)
 }
+\author{
+Kevin Wang
+}

@@ -31,7 +31,7 @@
 #' )
 #' rownames(classifierMatrix) = c("TenFold", "FiveFold")
 #'
-#' compareBinaryClassResults(y, classifierMatrix)#'
+#' compareBinaryClassResults(y, classifierMatrix)
 
 
 
@@ -46,6 +46,7 @@
 
 
 compareBinaryClassResults = function(y, classifierMatrix){
+
   stopifnot(identical(length(y),
                       ncol(classifierMatrix)))
 
@@ -53,6 +54,8 @@ compareBinaryClassResults = function(y, classifierMatrix){
   n = length(y)
   obsNum = paste0("obs", seq_len(n))
   names(y) = obsNum
+
+  originalMethodNames = rownames(classifierMatrix)
 
   stopifnot(length(unique(y)) == 2)
   ##############################################
@@ -79,7 +82,8 @@ compareBinaryClassResults = function(y, classifierMatrix){
     tidyr::gather(key = methodName,
                   value = signedScores,
                   -sampleName) %>%
-    dplyr::mutate(methodName = forcats::fct_relevel(methodName, "trueLabel"))
+    dplyr::mutate(methodName =
+                    forcats::fct_relevel(methodName, c(originalMethodNames, "trueLabel")))
 
   plotdf %>% head
 

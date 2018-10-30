@@ -4,7 +4,7 @@
 \alias{rfCV_multi}
 \title{Performing CV using random forest, allowing multiple cores}
 \usage{
-rfCV_multi(x, y, nFolds, nExp, cores = 1, ntree = 500)
+rfCV_multi(x, y, nFolds = 5, nExp, cores = 1, ntree = 500)
 }
 \arguments{
 \item{x}{design matrix}

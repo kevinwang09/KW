@@ -12,12 +12,12 @@
 
 
 logitCV_multi = function(x, y,
-                         nFolds,
+                         nFolds = 5,
                          nExp,
                          cores = 1, cutoff = 0.5){
 
   listDataPartitions = replicate(nExp,
-                                 {cvPartition(x = x, y = y, nFolds = 5)},
+                                 {cvPartition(x = x, y = y, nFolds = nFolds)},
                                  simplify = FALSE)
   names(listDataPartitions) = paste0("exp", seq_len(nExp))
 

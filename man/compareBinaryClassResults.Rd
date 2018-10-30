@@ -38,7 +38,7 @@ classifierMatrix = rbind(
 )
 rownames(classifierMatrix) = c("TenFold", "FiveFold")
 
-compareBinaryClassResults(y, classifierMatrix)#'
+compareBinaryClassResults(y, classifierMatrix)
 }
 \author{
 Kevin Wang

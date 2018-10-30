@@ -4,7 +4,7 @@
 \alias{logitCV_multi}
 \title{Performing CV using glm(family = "binomial"), allowing multiple cores}
 \usage{
-logitCV_multi(x, y, nFolds, nExp, cores = 1, cutoff = 0.5)
+logitCV_multi(x, y, nFolds = 5, nExp, cores = 1, cutoff = 0.5)
 }
 \arguments{
 \item{cvObj}{outputs of the cvPartition function}

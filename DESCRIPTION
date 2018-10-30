@@ -1,7 +1,7 @@
 Package: SmokyScotch
 Type: Package
 Title: I like Scotch and R
-Version: 0.5.11
+Version: 0.5.13
 Authors@R: person("Kevin", "Wang", role = c("aut", "cre"), email = "kevin.wang@sydney.edu.au")
 Maintainer: Kevin Y.X. Wang <kevin.wang@sydney.edu.au>
 Description: Some functions that I have for my own research.
@@ -12,6 +12,7 @@ Imports:
   caret,
   e1071,
   janitor,
+  glmnet,
   RColorBrewer,
   parallel,
   purrr,

@@ -9,7 +9,7 @@ getLassoCoef(lassoObj, s)
 \arguments{
 \item{lassoObj}{Lasso object, either cv.glmnet or glmnet outputs}
 
-\item{s}{}
+\item{s}{lambda choice as in glmnet}
 }
 \description{
 Compare the true classification with a matrix of predictions
@@ -17,7 +17,7 @@ Compare the true classification with a matrix of predictions
 \examples{
 x = iris[51:150, -5] \%>\% as.matrix
 y = as.matrix(as.integer(iris[51:150, 5])-2)
-library(glment)
+library(glmnet)
 lassoObj = glmnet(x = x, y = y, family = "binomial")
 getLassoCoef(lassoObj, s = 0.001)
 cvLassoObj = cv.glmnet(x = x, y = y, family = "binomial")

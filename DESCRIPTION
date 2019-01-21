@@ -1,7 +1,7 @@
 Package: SmokyScotch
 Type: Package
 Title: I like Scotch and R
-Version: 0.5.14
+Version: 0.5.15
 Authors@R: person("Kevin", "Wang", role = c("aut", "cre"), email = "kevin.wang@sydney.edu.au")
 Maintainer: Kevin Y.X. Wang <kevin.wang@sydney.edu.au>
 Description: Some functions that I have for my own research.
@@ -18,4 +18,4 @@ Imports:
   randomForest,
   scales,
   tidyverse
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

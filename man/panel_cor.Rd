@@ -7,7 +7,9 @@
 panel_cor(x, y)
 }
 \arguments{
-\item{data}{a data frame}
+\item{x}{a vector}
+
+\item{y}{a vector}
 }
 \description{
 A better pairs plot function

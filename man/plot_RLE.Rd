@@ -4,12 +4,10 @@
 \alias{plot_RLE}
 \title{RLE plot}
 \usage{
-plot_RLE(exprsMatrix, colour = NULL)
+plot_RLE(exprsMatrix)
 }
 \arguments{
 \item{exprsMatrix}{a matrix}
-
-\item{colour}{colours corresponding to samples}
 }
 \description{
 RLE plot
@@ -23,7 +21,6 @@ matrix(rnorm(3*p, mean = 5), nrow = p)
 )
 boxplot(exprsMatrix)
 plot_RLE(exprsMatrix)
-plot_RLE(exprsMatrix, colour = sample(1:5, n, replace = TRUE))
 }
 \author{
 Kevin Wang

@@ -1,9 +1,0 @@
-#' Display the first k rows and first k columns of the data
-#' @param x data.frame
-#' @author Kevin Wang
-#' @param k number of rows and columns to view
-#' @export
-
-topView = function(x, k = 6){
-  x[1:k, 1:k]
-}

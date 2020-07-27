@@ -1,8 +1,9 @@
 #' Performing CV using random forest
 #' @param cvObj outputs of the cvPartition function
+#' @param ntree number of trees
 #' @author Kevin Wang
-#' @import purrr
-#' @import randomForest
+#' @importFrom purrr map2 map2_dbl
+#' @importFrom randomForest randomForest
 #' @export
 
 

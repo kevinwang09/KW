@@ -16,13 +16,15 @@ rfCV_multi(x, y, nFolds = 5, nExp, cores = 1, ntree = 500)
 \item{nExp}{number of loops}
 
 \item{cores}{number of cores to perform the CV}
+
+\item{ntree}{number of trees}
 }
 \description{
 Performing CV using random forest, allowing multiple cores
 }
 \examples{
 x = iris[51:150, -5]
-y = iris[51:150, 5] \%>\% as.factor
+y = factor(iris[51:150, 5])
 tmp2 = rfCV_multi(x = x, y = y,
                    nFolds = 5, nExp = 100, cores = 1, ntree = 100)
 

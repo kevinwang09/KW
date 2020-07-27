@@ -1,6 +1,7 @@
 #' Performing CV using random forest, allowing multiple cores
 #' @param x design matrix
 #' @param y factor
+#' @param ntree number of trees
 #' @param nFolds number of CV folds
 #' @param nExp number of loops
 #' @param cores number of cores to perform the CV
@@ -9,7 +10,7 @@
 #' @export
 #' @examples
 #' x = iris[51:150, -5]
-#' y = iris[51:150, 5] %>% as.factor
+#' y = factor(iris[51:150, 5])
 #' tmp2 = rfCV_multi(x = x, y = y,
 #'                    nFolds = 5, nExp = 100, cores = 1, ntree = 100)
 #'

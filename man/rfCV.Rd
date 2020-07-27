@@ -8,6 +8,8 @@ rfCV(cvObj, ntree)
 }
 \arguments{
 \item{cvObj}{outputs of the cvPartition function}
+
+\item{ntree}{number of trees}
 }
 \description{
 Performing CV using random forest

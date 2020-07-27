@@ -1,12 +1,15 @@
 #' Creating CV data partition
 #' @param x x should be a matrix without rownames
 #' @param y y should be true labels
+#' @param nFolds number of folds
 #' @importFrom caret createFolds
 #' @author Kevin Wang
+#' @importFrom dplyr %>%
+#' @importFrom caret createFolds
 #' @export
 #' @examples
 #' x = iris[51:150, -5]
-#' y = iris[51:150, 5] %>% as.factor
+#' y = factor(iris[51:150, 5])
 #' cvp = cvPartition(x = x, y = y, nFolds = 5)
 #' str(cvp)
 cvPartition = function(x, y, nFolds){

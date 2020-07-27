@@ -1,5 +1,6 @@
 #' Performing CV using lasso, allowing multiple cores
 #' @param cvObj outputs of the cvPartition function
+#' @param ntree number of trees
 #' @author Kevin Wang
 #' @import parallel
 #' @import glmnet
@@ -16,14 +17,14 @@ lassoCV_multi = function(x, y, family, s = "lambda.min",
                        nFolds = 5,
                        nExp,
                        cores = 1){
-  
+
   listDataPartitions = replicate(nExp,
                                  {cvPartition(x = x, y = y, nFolds = nFolds)},
                                  simplify = FALSE)
-  
+
   names(listDataPartitions) = paste0("exp", seq_len(nExp))
-  
-  
+
+
   if (cores == 1){
     listPrediction = lapply(listDataPartitions, lassoCV, family = family, s = s)
   } else {

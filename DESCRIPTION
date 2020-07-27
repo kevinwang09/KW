@@ -1,14 +1,15 @@
 Package: SmokyScotch
 Type: Package
 Title: I like Scotch and R
-Version: 0.5.17
+Version: 0.6.0
 Authors@R: person("Kevin", "Wang", role = c("aut", "cre"), email = "kevin.wang@sydney.edu.au")
 Maintainer: Kevin Y.X. Wang <kevin.wang@sydney.edu.au>
 Description: Some functions that I have for my own research.
-License: Do not distribute outside of Kevin Wang's laptop
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
+  assertthat,
   caret,
   e1071,
   janitor,
@@ -17,6 +18,13 @@ Imports:
   parallel,
   randomForest,
   scales,
-  tidyverse,
-  proxy
-RoxygenNote: 6.1.1
+  proxy,
+  dplyr,
+  forcats,
+  ggplot2,
+  magrittr,
+  purrr,
+  tibble,
+  stringr,
+  tidyr
+RoxygenNote: 7.1.1

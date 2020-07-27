@@ -10,13 +10,15 @@ cvPartition(x, y, nFolds)
 \item{x}{x should be a matrix without rownames}
 
 \item{y}{y should be true labels}
+
+\item{nFolds}{number of folds}
 }
 \description{
 Creating CV data partition
 }
 \examples{
 x = iris[51:150, -5]
-y = iris[51:150, 5] \%>\% as.factor
+y = factor(iris[51:150, 5])
 cvp = cvPartition(x = x, y = y, nFolds = 5)
 str(cvp)
 }

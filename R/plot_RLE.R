@@ -2,6 +2,8 @@
 #' @param exprsMatrix a matrix
 #' @author Kevin Wang
 #' @import ggplot2
+#' @importFrom rlang .data
+#' @importFrom stats median quantile
 #' @export
 #' @examples
 #' n = 30
@@ -31,11 +33,11 @@ plot_RLE = function(exprsMatrix){
 
 
   rlePlot = rlePlotdf %>%
-    ggplot2::ggplot(aes(x = sampleID,
-                        y = sampleMedian,
-                        label = sampleID)) +
+    ggplot2::ggplot(aes(x = .data$sampleID,
+                        y = .data$sampleMedian,
+                        label = .data$sampleID)) +
     geom_point() +
-    geom_errorbar(aes(ymin = sampleQ1, ymax = sampleQ3), width = 0) +
+    geom_errorbar(aes(ymin = .data$sampleQ1, ymax = .data$sampleQ3), width = 0) +
     geom_hline(yintercept = 0, colour = "red") +
     theme_classic(18) +
     theme(legend.position = "bottom",

@@ -26,5 +26,8 @@ Imports:
   purrr,
   tibble,
   stringr,
-  tidyr
+  tidyr,
+  rlang,
+  furrr,
+  future
 RoxygenNote: 7.1.1

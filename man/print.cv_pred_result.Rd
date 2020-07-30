@@ -7,7 +7,7 @@
 \method{print}{cv_pred_result}(cv_pred_result)
 }
 \arguments{
-\item{cv_pred_result}{Output from cv_partition}
+\item{cv_pred_result}{Output from *_cv functions}
 }
 \description{
 Printing cv_partition object

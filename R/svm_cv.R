@@ -10,7 +10,7 @@
 #' y = factor(iris[51:150, 5])
 #' cv_obj = cv_partition(x = x, y = y, nfolds = 5)
 #' svm_cv(cv_obj)
-svm_cv = function(cvObj){
+svm_cv = function(cv_obj){
   ## This looks at each pairings of training data (a total of nfolds pairings) and create a random forest model
   svm_objs = purrr::map2(.x = cv_obj$train_x,
                          .y = cv_obj$train_y,

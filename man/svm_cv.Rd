@@ -4,7 +4,7 @@
 \alias{svm_cv}
 \title{Performing CV using svm}
 \usage{
-svm_cv(cvObj)
+svm_cv(cv_obj)
 }
 \arguments{
 \item{cv_obj}{outputs of the cvPartition function}

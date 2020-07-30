@@ -60,7 +60,8 @@ cv_object = function(cv_object){
 cv_pred_result <- function(x, ...) UseMethod("cv_pred_result")
 
 #' @title Printing cv_partition object
-#' @param cv_pred_result Output from cv_partition
+#' @param cv_pred_result Output from *_cv functions
+#' @importFrom utils head
 print.cv_pred_result = function(cv_pred_result){
   cat("First 5 sample predictions")
   print(head(cv_pred_result$fold_error, 5))

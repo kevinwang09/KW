@@ -112,7 +112,7 @@
     <p>Performing CV using svm</p>
     </div>
 
-    <pre class="usage"><span class='fu'>svm_cv</span>(<span class='no'>cvObj</span>)</pre>
+    <pre class="usage"><span class='fu'>svm_cv</span>(<span class='no'>cv_obj</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,7 +128,138 @@
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='fl'>51</span>:<span class='fl'>150</span>, -<span class='fl'>5</span>]
 <span class='no'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>iris</span>[<span class='fl'>51</span>:<span class='fl'>150</span>, <span class='fl'>5</span>])
 <span class='no'>cv_obj</span> <span class='kw'>=</span> <span class='fu'><a href='cv_partition.html'>cv_partition</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='fu'>svm_cv</span>(<span class='no'>cv_obj</span>)</div><div class='output co'>#&gt; <span class='error'>Error in purrr::map2(.x = cv_obj$train_x, .y = cv_obj$train_y, .f = ~e1071::svm(x = .x,     y = factor(.y), probability = TRUE)): object 'cv_obj' not found</span></div></pre>
+<span class='fu'>svm_cv</span>(<span class='no'>cv_obj</span>)</div><div class='output co'>#&gt; $fold_error
+#&gt; Fold1 Fold2 Fold3 Fold4 Fold5 
+#&gt;  0.00  0.10  0.00  0.05  0.15 
+#&gt; 
+#&gt; $mean_error
+#&gt; [1] 0.06
+#&gt; 
+#&gt; $predict_class
+#&gt;   [1] versicolor versicolor versicolor versicolor versicolor versicolor
+#&gt;   [7] versicolor versicolor versicolor versicolor versicolor versicolor
+#&gt;  [13] versicolor versicolor versicolor versicolor versicolor versicolor
+#&gt;  [19] versicolor versicolor virginica  versicolor versicolor versicolor
+#&gt;  [25] versicolor versicolor versicolor virginica  versicolor versicolor
+#&gt;  [31] versicolor versicolor versicolor virginica  versicolor versicolor
+#&gt;  [37] versicolor versicolor versicolor versicolor versicolor versicolor
+#&gt;  [43] versicolor versicolor versicolor versicolor versicolor versicolor
+#&gt;  [49] versicolor versicolor virginica  virginica  virginica  virginica 
+#&gt;  [55] virginica  virginica  versicolor virginica  virginica  virginica 
+#&gt;  [61] virginica  virginica  virginica  virginica  virginica  virginica 
+#&gt;  [67] virginica  virginica  virginica  versicolor virginica  virginica 
+#&gt;  [73] virginica  virginica  virginica  virginica  virginica  virginica 
+#&gt;  [79] virginica  virginica  virginica  virginica  virginica  versicolor
+#&gt;  [85] virginica  virginica  virginica  virginica  virginica  virginica 
+#&gt;  [91] virginica  virginica  virginica  virginica  virginica  virginica 
+#&gt;  [97] virginica  virginica  virginica  virginica 
+#&gt; Levels: versicolor virginica
+#&gt; 
+#&gt; $predict_prob
+#&gt;         versicolor   virginica
+#&gt;   [1,] 0.954951729 0.045048271
+#&gt;   [2,] 0.975189875 0.024810125
+#&gt;   [3,] 0.789034830 0.210965170
+#&gt;   [4,] 0.971468024 0.028531976
+#&gt;   [5,] 0.932057639 0.067942361
+#&gt;   [6,] 0.971121781 0.028878219
+#&gt;   [7,] 0.922985248 0.077014752
+#&gt;   [8,] 0.929839299 0.070160701
+#&gt;   [9,] 0.980021913 0.019978087
+#&gt;  [10,] 0.901074185 0.098925815
+#&gt;  [11,] 0.824138476 0.175861524
+#&gt;  [12,] 0.980889006 0.019110994
+#&gt;  [13,] 0.975774086 0.024225914
+#&gt;  [14,] 0.949072971 0.050927029
+#&gt;  [15,] 0.978449123 0.021550877
+#&gt;  [16,] 0.990875357 0.009124643
+#&gt;  [17,] 0.941477993 0.058522007
+#&gt;  [18,] 0.989333427 0.010666573
+#&gt;  [19,] 0.660720034 0.339279966
+#&gt;  [20,] 0.972349274 0.027650726
+#&gt;  [21,] 0.398442631 0.601557369
+#&gt;  [22,] 0.987446023 0.012553977
+#&gt;  [23,] 0.484814416 0.515185584
+#&gt;  [24,] 0.968711217 0.031288783
+#&gt;  [25,] 0.990111926 0.009888074
+#&gt;  [26,] 0.984622028 0.015377972
+#&gt;  [27,] 0.908371384 0.091628616
+#&gt;  [28,] 0.203130370 0.796869630
+#&gt;  [29,] 0.925062635 0.074937365
+#&gt;  [30,] 0.980413244 0.019586756
+#&gt;  [31,] 0.973723061 0.026276939
+#&gt;  [32,] 0.973139585 0.026860415
+#&gt;  [33,] 0.992669420 0.007330580
+#&gt;  [34,] 0.120394658 0.879605342
+#&gt;  [35,] 0.859058427 0.140941573
+#&gt;  [36,] 0.937160768 0.062839232
+#&gt;  [37,] 0.945718971 0.054281029
+#&gt;  [38,] 0.924140632 0.075859368
+#&gt;  [39,] 0.991611656 0.008388344
+#&gt;  [40,] 0.962115056 0.037884944
+#&gt;  [41,] 0.936491118 0.063508882
+#&gt;  [42,] 0.972447410 0.027552590
+#&gt;  [43,] 0.982699706 0.017300294
+#&gt;  [44,] 0.961712234 0.038287766
+#&gt;  [45,] 0.968794389 0.031205611
+#&gt;  [46,] 0.986607354 0.013392646
+#&gt;  [47,] 0.981727053 0.018272947
+#&gt;  [48,] 0.990845695 0.009154305
+#&gt;  [49,] 0.919384193 0.080615807
+#&gt;  [50,] 0.979705196 0.020294804
+#&gt;  [51,] 0.048563688 0.951436312
+#&gt;  [52,] 0.011150510 0.988849490
+#&gt;  [53,] 0.017797976 0.982202024
+#&gt;  [54,] 0.020240325 0.979759675
+#&gt;  [55,] 0.002203221 0.997796779
+#&gt;  [56,] 0.033402368 0.966597632
+#&gt;  [57,] 0.584496390 0.415503610
+#&gt;  [58,] 0.010876646 0.989123354
+#&gt;  [59,] 0.009457452 0.990542548
+#&gt;  [60,] 0.042807096 0.957192904
+#&gt;  [61,] 0.091927997 0.908072003
+#&gt;  [62,] 0.020219378 0.979780622
+#&gt;  [63,] 0.009922269 0.990077731
+#&gt;  [64,] 0.023729566 0.976270434
+#&gt;  [65,] 0.006943441 0.993056559
+#&gt;  [66,] 0.012909815 0.987090185
+#&gt;  [67,] 0.049068203 0.950931797
+#&gt;  [68,] 0.060965558 0.939034442
+#&gt;  [69,] 0.138229300 0.861770700
+#&gt;  [70,] 0.541480377 0.458519623
+#&gt;  [71,] 0.013623157 0.986376843
+#&gt;  [72,] 0.019113825 0.980886175
+#&gt;  [73,] 0.023859882 0.976140118
+#&gt;  [74,] 0.088432319 0.911567681
+#&gt;  [75,] 0.020525815 0.979474185
+#&gt;  [76,] 0.025976990 0.974023010
+#&gt;  [77,] 0.259436030 0.740563970
+#&gt;  [78,] 0.350645140 0.649354860
+#&gt;  [79,] 0.001537480 0.998462520
+#&gt;  [80,] 0.252540075 0.747459925
+#&gt;  [81,] 0.036145931 0.963854069
+#&gt;  [82,] 0.040876869 0.959123131
+#&gt;  [83,] 0.005392107 0.994607893
+#&gt;  [84,] 0.712699483 0.287300517
+#&gt;  [85,] 0.494168268 0.505831732
+#&gt;  [86,] 0.041448433 0.958551567
+#&gt;  [87,] 0.052189099 0.947810901
+#&gt;  [88,] 0.064875512 0.935124488
+#&gt;  [89,] 0.169439438 0.830560562
+#&gt;  [90,] 0.021609517 0.978390483
+#&gt;  [91,] 0.009955523 0.990044477
+#&gt;  [92,] 0.012842891 0.987157109
+#&gt;  [93,] 0.020649637 0.979350363
+#&gt;  [94,] 0.011075146 0.988924854
+#&gt;  [95,] 0.037005989 0.962994011
+#&gt;  [96,] 0.014034805 0.985965195
+#&gt;  [97,] 0.075246639 0.924753361
+#&gt;  [98,] 0.007170319 0.992829681
+#&gt;  [99,] 0.061878458 0.938121542
+#&gt; [100,] 0.184508319 0.815491681
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "list"           "cv_pred_result"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

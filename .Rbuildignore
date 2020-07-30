@@ -5,7 +5,5 @@ lassoCV.R
 lassoCV_multi.R
 logitCV.R
 logitCV_multi.R
-svmCV.R
-svmCV_multi.R
 ^README\.Rmd$
 ^docs$

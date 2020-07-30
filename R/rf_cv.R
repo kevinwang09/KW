@@ -1,49 +1,9 @@
-#' Performing CV using random forest, allowing multiple cores
-#' @param x design matrix
-#' @param y factor
-#' @param nfolds number of CV folds
-#' @param nexp number of loops
-#' @author Kevin Wang
-#' @importFrom furrr future_map
-#' @importFrom future multisession
-#' @export
-#' @rdname rf_cv
-#' @examples
-#' x = iris[51:150, -5]
-#' y = factor(iris[51:150, 5])
-#' res = rf_cv_multi(x = x, y = y)
-#' \dontrun{
-#' library(furrr)
-#' plan(multisession(workers = 5))
-#' res = rf_cv_multi(x = x, y = y, nexp = 20)
-#' plan(future::sequential)
-#' }
-
-rf_cv_multi = function(x, y,
-                       nfolds = 5,
-                       nexp = 5){
-
-  list_data_partitions = replicate(nexp,
-                                   {cv_partition(x = x, y = y, nfolds = nfolds)},
-                                   simplify = FALSE)
-  d = paste0("exp_%0", ceiling(log10(nexp)) + 1L, "d")
-
-  names(list_data_partitions) = sprintf(d, seq_len(nexp))
-
-  list_prediction = furrr::future_map(.x = seq_len(nexp),
-                                      .f = ~ rf_cv(list_data_partitions[[.x]]),
-                                      .progress = TRUE)
-  return(list_prediction)
-}
-
-
 #' Performing CV using random forest
 #' @param cv_obj outputs of the cvPartition function
 #' @author Kevin Wang
 #' @importFrom purrr map2 map2_dbl
 #' @importFrom randomForest randomForest
 #' @importFrom tibble lst
-#' @rdname rf_cv
 #' @export
 #' @examples
 #' x = iris[51:150, -5]
@@ -97,5 +57,6 @@ rf_cv = function(cv_obj){
                        predict_class = rf_predict_class_vec_ordered,
                        predict_prob = rf_predict_prob_mat_ordered)
 
+  class(result) = c(class(result), "cv_pred_result")
   return(result)
 }

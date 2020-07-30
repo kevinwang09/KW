@@ -38,21 +38,34 @@ cv_partition = function(x, y, nfolds){
                        train_y,
                        original_index,
                        original_names = names(y))
-  class(result) = "cv_obj"
+  class(result) = "cv_object"
   return(result)
 }
 
 
-cv_obj <- function(x, ...) UseMethod("cv_obj")
+cv_object <- function(x, ...) UseMethod("cv_object")
 
 #' @title Printing cv_partition object
-#' @param cv_obj Output from cv_partition
-print.cv_obj = function(cv_obj){
+#' @param cv_object Output from cv_partition
+cv_object = function(cv_object){
   cat("Number of samples in training data folds")
-  print(purrr::map_int(cv_obj$train_y, length))
+  print(purrr::map_int(cv_object$train_y, length))
 
   cat("Number of samples in test data folds")
-  purrr::map_int(cv_obj$test_y, length)
+  purrr::map_int(cv_object$test_y, length)
+}
+
+
+
+cv_pred_result <- function(x, ...) UseMethod("cv_pred_result")
+
+#' @title Printing cv_partition object
+#' @param cv_pred_result Output from cv_partition
+print.cv_pred_result = function(cv_pred_result){
+  cat("First 5 sample predictions")
+  print(head(cv_pred_result$fold_error, 5))
+  print(head(cv_pred_result$predict_class, 5))
+  print(head(cv_pred_result$predict_prob, 5))
 }
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines

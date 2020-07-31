@@ -63,10 +63,13 @@ cv_pred_result <- function(x, ...) UseMethod("cv_pred_result")
 #' @param cv_pred_result Output from *_cv functions
 #' @importFrom utils head
 print.cv_pred_result = function(cv_pred_result){
-  cat("First 5 repeated predictions")
+  cat("First 5 CV mean errors")
   print(head(cv_pred_result$mean_error, 5))
+  cat("First 5 CV fold errors")
   print(head(cv_pred_result$fold_error, 5))
+  cat("First 5 CV predicted class")
   print(head(cv_pred_result$predict_class, 5))
+  cat("First 5 CV predicted probabilities")
   print(head(cv_pred_result$predict_prob, 5))
 }
 

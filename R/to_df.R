@@ -14,11 +14,15 @@
 v2df = function(vec,
                 variable_name = "variable",
                 value_name = "value"){
-  assertthat::assert_that(is.vector(vec))
-  assertthat::assert_that(!is.null(names(vec)),
-                          msg = "vector must have names")
+  assertthat::assert_that(is.vector(vec) | is.factor(vec))
 
-  result = tibble(variable = names(vec), value = vec)
+  if(is.null(names(vec))){
+    # message("vector does not have names, using index instead")
+    result = tibble(variable = seq_along(vec), value = vec)
+  } else {
+    result = tibble(variable = names(vec), value = vec)
+  }
+
   colnames(result) = c(variable_name, value_name)
   return(result)
 }

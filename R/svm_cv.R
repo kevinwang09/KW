@@ -57,6 +57,5 @@ svm_cv = function(cv_obj){
                        predict_class = svm_predict_class_vec_ordered,
                        predict_prob = svm_predict_prob_mat_ordered)
 
-  class(result) = c(class(result), "cv_pred_result")
   return(result)
 }

@@ -11,6 +11,7 @@ output:
     number_sections: true
     toc_depth: 3
     toc_float: yes
+    theme: paper
 editor_options: 
   chunk_output_type: console
 ---

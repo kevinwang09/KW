@@ -1,7 +1,7 @@
 ---
-title: "kevinMarkdown"
+title: "Kevin Wang's template"
 author: "Kevin Wang"
-date: "`r paste0('Initiated on 2018 Jan 31, compiled on ', format(Sys.time(), '%Y %b %d'))`"
+date: "`r paste0('Initiated on 2020 Aug 22, compiled on ', format(Sys.time(), '%Y %b %d'))`"
 output:
   html_document:
     code_folding: hide
@@ -15,17 +15,21 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Loading packages
-```{r}
+# Summary
 
+# Loading 
+
+## packages
+```{r}
+library(tidyverse)
 ```
 
-
+## data
 
 
 
 # Session Info
 ```{r}
-sessionInfo()
+sessioninfo::session_info()
 ```
 

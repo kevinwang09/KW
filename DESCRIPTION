@@ -29,5 +29,7 @@ Imports:
   tidyr,
   rlang,
   furrr,
-  future
+  future,
+  shiny,
+  DT
 RoxygenNote: 7.1.1

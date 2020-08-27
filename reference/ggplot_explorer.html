@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • SmokyScotch</title>
+<title>Shiny app for ggplot exploration — ggplot_explorer • SmokyScotch</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Shiny app for ggplot exploration — ggplot_explorer" />
+<meta property="og:description" content="Shiny app for ggplot exploration" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -100,114 +101,37 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Shiny app for ggplot exploration</h1>
+    
+    <div class="hidden name"><code>ggplot_explorer.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Shiny app for ggplot exploration</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>ggplot_explorer</span>(<span class='no'>uploaded_plot</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="clean_digits.html">clean_digits()</a></code> </p>
-        </td>
-        <td><p>Clean the digits in a data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cv_multi.html">cv_multi()</a></code> </p>
-        </td>
-        <td><p>Performing CV using random forest, allowing multiple cores</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cv_object.html">cv_object()</a></code> </p>
-        </td>
-        <td><p>Printing cv_partition object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cv_partition.html">cv_partition()</a></code> </p>
-        </td>
-        <td><p>Creating CV data partition</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ggplot_explorer.html">ggplot_explorer()</a></code> </p>
-        </td>
-        <td><p>Shiny app for ggplot exploration</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_RLE.html">plot_RLE()</a></code> </p>
-        </td>
-        <td><p>RLE plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.cv_pred_result.html">print(<i>&lt;cv_pred_result&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Printing cv_partition object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rf_cv.html">rf_cv()</a></code> </p>
-        </td>
-        <td><p>Performing CV using random forest</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="str_sub_front_last.html">str_sub_front_last()</a></code> </p>
-        </td>
-        <td><p>Substring based on number of first and last characters</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="svm_cv.html">svm_cv()</a></code> </p>
-        </td>
-        <td><p>Performing CV using svm</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="to_df.html">v2df()</a></code> <code><a href="to_df.html">t2df()</a></code> </p>
-        </td>
-        <td><p>Convert a named vector into a data.frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="top.html">top()</a></code> </p>
-        </td>
-        <td><p>Display the first k rows and first k columns of the data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="transformations.html">arcsinh()</a></code> <code><a href="transformations.html">expit()</a></code> </p>
-        </td>
-        <td><p>Arcsinh transform</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>g</th>
+      <td><p>a ggplot object</p></td>
+    </tr>
     </table>
-  </div>
 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
+<span class='no'>uploaded_plot</span> <span class='kw'>=</span> <span class='fu'>ggplot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>Sepal.Length</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Sepal.Width</span>,
+           <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
+  <span class='fu'>geom_point</span>()
+<span class='fu'>ggplot_explorer</span>(<span class='kw'>uploaded_plot</span> <span class='kw'>=</span> <span class='no'>uploaded_plot</span>)
+}</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

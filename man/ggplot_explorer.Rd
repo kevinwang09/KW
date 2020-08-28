@@ -7,7 +7,7 @@
 ggplot_explorer(uploaded_plot)
 }
 \arguments{
-\item{g}{a ggplot object}
+\item{uploaded_plot}{a ggplot object}
 }
 \description{
 Shiny app for ggplot exploration

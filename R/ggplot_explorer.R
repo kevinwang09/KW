@@ -1,6 +1,6 @@
 #' @author Kevin Wang
 #' @title Shiny app for ggplot exploration
-#' @param g a ggplot object
+#' @param uploaded_plot a ggplot object
 #' @import ggplot2
 #' @import shiny
 #' @export

@@ -31,5 +31,6 @@ Imports:
   furrr,
   future,
   shiny,
-  DT
+  DT,
+  rsample
 RoxygenNote: 7.1.1

@@ -112,7 +112,7 @@
     <p>Performing CV using svm</p>
     </div>
 
-    <pre class="usage"><span class='fu'>svm_cv</span>(<span class='no'>cv_obj</span>)</pre>
+    <pre class="usage"><span class='fu'>svm_cv</span><span class='op'>(</span><span class='va'>cv_obj</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -123,12 +123,16 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Kevin Wang</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>=</span> <span class='no'>iris</span>[<span class='fl'>51</span>:<span class='fl'>150</span>, -<span class='fl'>5</span>]
-<span class='no'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>iris</span>[<span class='fl'>51</span>:<span class='fl'>150</span>, <span class='fl'>5</span>])
-<span class='no'>cv_obj</span> <span class='kw'>=</span> <span class='fu'><a href='cv_partition.html'>cv_partition</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='fu'>svm_cv</span>(<span class='no'>cv_obj</span>)</div><div class='output co'>#&gt; $fold_error
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>51</span><span class='op'>:</span><span class='fl'>150</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>
+<span class='va'>y</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>[</span><span class='fl'>51</span><span class='op'>:</span><span class='fl'>150</span>, <span class='fl'>5</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>cv_obj</span> <span class='op'>=</span> <span class='fu'><a href='cv_partition.html'>cv_partition</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, y <span class='op'>=</span> <span class='va'>y</span>, nfolds <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>svm_cv</span><span class='op'>(</span><span class='va'>cv_obj</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $fold_error
 #&gt; Fold1 Fold2 Fold3 Fold4 Fold5 
 #&gt;  0.00  0.10  0.00  0.05  0.15 
 #&gt; 
@@ -273,7 +277,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

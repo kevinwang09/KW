@@ -33,5 +33,6 @@ Imports:
     shiny,
     DT,
     rsample,
-    broom
+    broom,
+    tidymodels
 RoxygenNote: 7.1.1

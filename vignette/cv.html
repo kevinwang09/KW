@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Kevin Wang" />
+
+<meta name="date" content="2020-10-03" />
+
+<title>Cross validation evaluation using tidymodels</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Cross validation evaluation using <code>tidymodels</code></h1>
+<h4 class="author">Kevin Wang</h4>
+<h4 class="date">2020-10-03</h4>
+
+
+
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>The main purpose of this vignette is to write down some basic codes to understand the <code>tidymodels</code> framework. While I do understand and appreciate many tutorials on <code>tidymodels</code>, one thing that I can’t quite get over is how do each individual package in this framework operate on its own. It is my personal habit to get an idea of what are the main functions and the main classes in a package before using it in my workflow.</p>
+<div id="an-overview-of-packages" class="section level2">
+<h2>An overview of packages</h2>
+<ul>
+<li><p><code>rsample</code>: the main purpose is to split samples (e.g. cross-validation, bootstrap etc) in an efficient way. One of the main class object is <code>rsplit</code>, which is a flexible way of storing the indices of the train/test data splits. The realisation (turning the indices of a data.frame into data.frame that can be used by other function) functions include <code>analysis</code>/<code>assessment</code>.</p></li>
+<li><p><code>recipes</code>: the main purpose is to provide a whole collection of pre-processing functions. This helps us to standardise our data when being trained.</p></li>
+<li><p><code>parsnip</code>: the main purpose is to provide a whole collection of modelling functions. One of the main advantages of this package is the unified interface/parameters.</p></li>
+<li><p><code>yardstick</code>: the main purpose is to provide a whole collection of metrics evaluation functions.</p></li>
+</ul>
+</div>
+</div>
+<div id="loading-packages" class="section level1">
+<h1>Loading packages</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tidymodels)</span></code></pre></div>
+<pre><code>## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found
+## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found
+## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found
+## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found
+## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found
+## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found
+## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found
+## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found
+## Error in get(genname, envir = envir) : object &#39;required_pkgs&#39; not found</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────── tidymodels 0.1.1 ──</code></pre>
+<pre><code>## ✓ broom     0.7.0           ✓ recipes   0.1.13.9001
+## ✓ dials     0.0.9           ✓ rsample   0.0.7      
+## ✓ dplyr     1.0.2           ✓ tibble    3.0.3      
+## ✓ ggplot2   3.3.2           ✓ tidyr     1.1.2      
+## ✓ infer     0.5.3           ✓ tune      0.1.1      
+## ✓ modeldata 0.0.2           ✓ workflows 0.2.0      
+## ✓ parsnip   0.1.3           ✓ yardstick 0.0.7      
+## ✓ purrr     0.3.4</code></pre>
+<pre><code>## ── Conflicts ───────────────────────────── tidymodels_conflicts() ──
+## x purrr::discard() masks scales::discard()
+## x dplyr::filter()  masks stats::filter()
+## x dplyr::lag()     masks stats::lag()
+## x recipes::step()  masks stats::step()</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(palmerpenguins)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ readr   1.3.1     ✓ forcats 0.5.0
+## ✓ stringr 1.4.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────── tidyverse_conflicts() ──
+## x readr::col_factor() masks scales::col_factor()
+## x purrr::discard()    masks scales::discard()
+## x dplyr::filter()     masks stats::filter()
+## x stringr::fixed()    masks recipes::fixed()
+## x dplyr::lag()        masks stats::lag()
+## x readr::spec()       masks yardstick::spec()</code></pre>
+</div>
+<div id="quick-checks-of-the-data" class="section level1">
+<h1>Quick checks of the data</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">head</span>(penguins)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 8
+##   species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
+##   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt;
+## 1 Adelie  Torge…           39.1          18.7              181        3750 male 
+## 2 Adelie  Torge…           39.5          17.4              186        3800 fema…
+## 3 Adelie  Torge…           40.3          18                195        3250 fema…
+## 4 Adelie  Torge…           NA            NA                 NA          NA &lt;NA&gt; 
+## 5 Adelie  Torge…           36.7          19.3              193        3450 fema…
+## 6 Adelie  Torge…           39.3          20.6              190        3650 male 
+## # … with 1 more variable: year &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">## Note the missing values</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>penguins <span class="op">%&gt;%</span><span class="st"> </span>purrr<span class="op">::</span><span class="kw">map_dbl</span>(<span class="op">~</span><span class="st"> </span>.x <span class="op">%&gt;%</span><span class="st"> </span>is.na <span class="op">%&gt;%</span><span class="st"> </span>mean)</span></code></pre></div>
+<pre><code>##           species            island    bill_length_mm     bill_depth_mm 
+##       0.000000000       0.000000000       0.005813953       0.005813953 
+## flipper_length_mm       body_mass_g               sex              year 
+##       0.005813953       0.005813953       0.031976744       0.000000000</code></pre>
+</div>
+<div id="demo-of-rsample" class="section level1">
+<h1>Demo of <code>rsample</code></h1>
+<p>In the past few years, my go-to function to perform cross-validation was <code>createDataPartition</code> from <code>caret</code>. However, this function returns a list of indices which is not always easy to manipulate if I want to do some quick experimentations.</p>
+<p><code>rsample</code> provides a new class <code>rsplit</code>, which stores the indices similar to what <code>caret</code> can produce. However, the package also provides realisation functions that when it is applied on a <code>rsplit</code> object, returns the corresponging data.frame. In my opinion, this is a lot tidier than creating indices and do the subsetting of data.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">library</span>(rsample)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>penguins_split =<span class="st"> </span>rsample<span class="op">::</span><span class="kw">initial_split</span>(penguins, <span class="dt">prop =</span> <span class="fl">0.2</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="kw">print</span>(penguins_split)</span></code></pre></div>
+<pre><code>## &lt;Analysis/Assess/Total&gt;
+## &lt;69/275/344&gt;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">class</span>(penguins_split)</span></code></pre></div>
+<pre><code>## [1] &quot;rsplit&quot;   &quot;mc_split&quot;</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">analysis</span>(penguins_split)</span></code></pre></div>
+<pre><code>## # A tibble: 69 x 8
+##    species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torge…           40.3          18                195        3250
+##  2 Adelie  Torge…           38.9          17.8              181        3625
+##  3 Adelie  Biscoe           37.9          18.6              172        3150
+##  4 Adelie  Dream            40.9          18.9              184        3900
+##  5 Adelie  Dream            38.8          20                190        3950
+##  6 Adelie  Dream            37            16.9              185        3000
+##  7 Adelie  Dream            37.5          18.9              179        2975
+##  8 Adelie  Biscoe           40.1          18.9              188        4300
+##  9 Adelie  Biscoe           34.5          18.1              187        2900
+## 10 Adelie  Biscoe           40.6          18.8              193        3800
+## # … with 59 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">assessment</span>(penguins_split)</span></code></pre></div>
+<pre><code>## # A tibble: 275 x 8
+##    species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torge…           39.1          18.7              181        3750
+##  2 Adelie  Torge…           39.5          17.4              186        3800
+##  3 Adelie  Torge…           NA            NA                 NA          NA
+##  4 Adelie  Torge…           36.7          19.3              193        3450
+##  5 Adelie  Torge…           39.3          20.6              190        3650
+##  6 Adelie  Torge…           39.2          19.6              195        4675
+##  7 Adelie  Torge…           34.1          18.1              193        3475
+##  8 Adelie  Torge…           42            20.2              190        4250
+##  9 Adelie  Torge…           37.8          17.1              186        3300
+## 10 Adelie  Torge…           37.8          17.3              180        3700
+## # … with 265 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">## Alternatives</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">training</span>(penguins_split)</span></code></pre></div>
+<pre><code>## # A tibble: 69 x 8
+##    species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torge…           40.3          18                195        3250
+##  2 Adelie  Torge…           38.9          17.8              181        3625
+##  3 Adelie  Biscoe           37.9          18.6              172        3150
+##  4 Adelie  Dream            40.9          18.9              184        3900
+##  5 Adelie  Dream            38.8          20                190        3950
+##  6 Adelie  Dream            37            16.9              185        3000
+##  7 Adelie  Dream            37.5          18.9              179        2975
+##  8 Adelie  Biscoe           40.1          18.9              188        4300
+##  9 Adelie  Biscoe           34.5          18.1              187        2900
+## 10 Adelie  Biscoe           40.6          18.8              193        3800
+## # … with 59 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">testing</span>(penguins_split)</span></code></pre></div>
+<pre><code>## # A tibble: 275 x 8
+##    species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torge…           39.1          18.7              181        3750
+##  2 Adelie  Torge…           39.5          17.4              186        3800
+##  3 Adelie  Torge…           NA            NA                 NA          NA
+##  4 Adelie  Torge…           36.7          19.3              193        3450
+##  5 Adelie  Torge…           39.3          20.6              190        3650
+##  6 Adelie  Torge…           39.2          19.6              195        4675
+##  7 Adelie  Torge…           34.1          18.1              193        3475
+##  8 Adelie  Torge…           42            20.2              190        4250
+##  9 Adelie  Torge…           37.8          17.1              186        3300
+## 10 Adelie  Torge…           37.8          17.3              180        3700
+## # … with 265 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+<div id="demo-of-recipes" class="section level1">
+<h1>Demo of <code>recipes</code></h1>
+<p>I think most data scientists can agree that a good model cannot exist without a well-cleaned data with appropriate transformations applied on it. And these data cleaning steps are usually more time-consuming than the actual statistical modelling.</p>
+<p>To me, the <code>recipes</code> package operates under the assumption that the modelling aim is not independent of the data cleaning process. And one of the ways that this is reflect is through the <code>recipe</code> class object and how it is initialised with a formula.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">library</span>(recipes)</span>
+<span id="cb26-2"><a href="#cb26-2"></a>penguins_rec =<span class="st"> </span><span class="kw">recipe</span>(species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> penguins_split)</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="kw">print</span>(penguins_rec)</span></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          7</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">class</span>(penguins_rec)</span></code></pre></div>
+<pre><code>## [1] &quot;recipe&quot;</code></pre>
+<p>Note: <code>identical(recipe(species ~ ., data = training(penguins_split)), penguins_rec)</code> is <code>TRUE</code>. The authors of <code>tidymodels</code> pointed out that the <code>recipe</code> object has this <code>data =</code> argument only to catalog the names of the variables and their types.</p>
+<p>From this point on, the pre-processing steps applied will operate on this <code>recipe</code> object by appending all the pre-processing steps to it.</p>
+<p>A major advantage of this class is that the selection of columns to undergo transformations accepts <code>dplyr</code>-style selection. Some example include:</p>
+<ul>
+<li>use basic variable names (e.g. <code>x1</code>, <code>x2</code>),</li>
+<li><code>dplyr</code> functions for selecting variables: <code>contains</code>, <code>ends_with</code>, <code>everything</code>, <code>matches</code>, <code>num_range</code>, and <code>starts_with</code>,</li>
+<li>functions that subset on the role of the variables that have been specified so far: <code>all_outcomes</code>, <code>all_predictors</code>, <code>has_role</code>, or</li>
+<li>similar functions for the type of data: <code>all_nominal</code>, <code>all_numeric</code>, and <code>has_type.</code></li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>penguins_rec <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="st">  </span><span class="kw">step_knnimpute</span>(<span class="kw">all_predictors</span>())</span></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          7
+## 
+## Operations:
+## 
+## K-nearest neighbor imputation for all_predictors()</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>penguins_rec <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="st">  </span><span class="kw">step_knnimpute</span>(all_numeric)</span></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          7
+## 
+## Operations:
+## 
+## K-nearest neighbor imputation for all_numeric</code></pre>
+<p>We know that this <code>penguins</code> data has some missing values, so we will use the <code>step_knnimpute</code> function.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>penguins_rec =<span class="st"> </span>penguins_rec <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="st">  </span><span class="kw">step_knnimpute</span>(<span class="kw">all_predictors</span>())</span>
+<span id="cb34-3"><a href="#cb34-3"></a></span>
+<span id="cb34-4"><a href="#cb34-4"></a>penguins_rec</span></code></pre></div>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          7
+## 
+## Operations:
+## 
+## K-nearest neighbor imputation for all_predictors()</code></pre>
+<p>When the code above is executed, nothing is really performed on the data itself. Because this object is only a “recipe”, you only record what are the steps to be applied to get a result out, but no steps are actually performed on the data yet.</p>
+<p>If you want to get the transformed <strong>training</strong> data, you can use the <code>prep</code> and <code>bake</code> functions. The <code>prep</code> function updates the <code>recipe</code> with some estimates after the transformation is applied. The <code>bake</code> function extracts the final training set as a data.frame/tibble.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>penguins_prep =<span class="st"> </span>penguins_rec <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">prep</span>()</span>
+<span id="cb36-2"><a href="#cb36-2"></a>penguins_prep <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;recipe&quot;</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>penguins_prep <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bake</span>(<span class="dt">new_data =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 69 x 8
+##    island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Torge…           40.3          18                195        3250 fema…  2007
+##  2 Torge…           38.9          17.8              181        3625 fema…  2007
+##  3 Biscoe           37.9          18.6              172        3150 fema…  2007
+##  4 Dream            40.9          18.9              184        3900 male   2007
+##  5 Dream            38.8          20                190        3950 male   2007
+##  6 Dream            37            16.9              185        3000 fema…  2007
+##  7 Dream            37.5          18.9              179        2975 fema…  2007
+##  8 Biscoe           40.1          18.9              188        4300 male   2008
+##  9 Biscoe           34.5          18.1              187        2900 fema…  2008
+## 10 Biscoe           40.6          18.8              193        3800 male   2008
+## # … with 59 more rows, and 1 more variable: species &lt;fct&gt;</code></pre>
+<p>Note: <code>bake</code> has a <code>new_data</code> parameter so that the recipe can be applied to non-training data. As of <code>recipes</code> version 0.1.14, <strong><code>juice()</code> is superseded</strong> in favor of <code>bake(object, new_data = NULL)</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">identical</span>(</span>
+<span id="cb40-2"><a href="#cb40-2"></a>  penguins_prep <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">juice</span>(),</span>
+<span id="cb40-3"><a href="#cb40-3"></a>  penguins_prep <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bake</span>(<span class="dt">new_data =</span> <span class="ot">NULL</span>))</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="demo-of-parsnip" class="section level1">
+<h1>Demo of <code>parsnip</code></h1>
+<p>Different R packages can implement the same machine learning algorithm in different ways with different parameters. One of the advantages of <code>parsnip</code> is to unify the inputs/outputs of these functions. A single function can be used to initialise and define what model will be fitted and then an engine can be set to pass on the appropriate parameters to the backend implementation.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>penguins_train =<span class="st"> </span>penguins_prep <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bake</span>(<span class="dt">new_data =</span> <span class="ot">NULL</span>)</span>
+<span id="cb42-2"><a href="#cb42-2"></a>penguins_test =<span class="st"> </span>penguins_prep <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bake</span>(<span class="dt">new_data =</span> <span class="kw">testing</span>(penguins_split))</span>
+<span id="cb42-3"><a href="#cb42-3"></a></span>
+<span id="cb42-4"><a href="#cb42-4"></a>rf_model =<span class="st"> </span><span class="kw">rand_forest</span>() <span class="op">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a><span class="st">  </span><span class="kw">set_args</span>(<span class="dt">trees =</span> <span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb42-6"><a href="#cb42-6"></a><span class="st">  </span><span class="kw">set_engine</span>(<span class="st">&quot;randomForest&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb42-7"><a href="#cb42-7"></a><span class="st">  </span><span class="kw">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
+<span id="cb42-8"><a href="#cb42-8"></a></span>
+<span id="cb42-9"><a href="#cb42-9"></a>penguins_rf =<span class="st"> </span>rf_model <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb42-10"><a href="#cb42-10"></a><span class="st">  </span><span class="kw">fit</span>(<span class="dt">formula =</span> species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> penguins_train)</span>
+<span id="cb42-11"><a href="#cb42-11"></a></span>
+<span id="cb42-12"><a href="#cb42-12"></a>penguins_pred =<span class="st"> </span>penguins_test <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_cols</span>(</span>
+<span id="cb42-13"><a href="#cb42-13"></a>  <span class="kw">predict</span>(penguins_rf, <span class="dt">new_data =</span> penguins_test, <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>), </span>
+<span id="cb42-14"><a href="#cb42-14"></a>  <span class="kw">predict</span>(penguins_rf, <span class="dt">new_data =</span> penguins_test, <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>))</span>
+<span id="cb42-15"><a href="#cb42-15"></a></span>
+<span id="cb42-16"><a href="#cb42-16"></a>penguins_pred</span></code></pre></div>
+<pre><code>## # A tibble: 275 x 12
+##    island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+##    &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Torge…           39.1          18.7              181        3750 male   2007
+##  2 Torge…           39.5          17.4              186        3800 fema…  2007
+##  3 Torge…           38.6          18.6              190        3775 fema…  2007
+##  4 Torge…           36.7          19.3              193        3450 fema…  2007
+##  5 Torge…           39.3          20.6              190        3650 male   2007
+##  6 Torge…           39.2          19.6              195        4675 male   2007
+##  7 Torge…           34.1          18.1              193        3475 fema…  2007
+##  8 Torge…           42            20.2              190        4250 male   2007
+##  9 Torge…           37.8          17.1              186        3300 fema…  2007
+## 10 Torge…           37.8          17.3              180        3700 fema…  2007
+## # … with 265 more rows, and 5 more variables: species &lt;fct&gt;, .pred_class &lt;fct&gt;,
+## #   .pred_Adelie &lt;dbl&gt;, .pred_Chinstrap &lt;dbl&gt;, .pred_Gentoo &lt;dbl&gt;</code></pre>
+</div>
+<div id="demo-of-yardstick" class="section level1">
+<h1>Demo of <code>yardstick</code></h1>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">library</span>(yardstick)</span>
+<span id="cb44-2"><a href="#cb44-2"></a></span>
+<span id="cb44-3"><a href="#cb44-3"></a><span class="kw">f_meas</span>(<span class="dt">data =</span> penguins_pred, </span>
+<span id="cb44-4"><a href="#cb44-4"></a>       <span class="dt">truth =</span> species, </span>
+<span id="cb44-5"><a href="#cb44-5"></a>       <span class="dt">estimate =</span> .pred_class)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 f_meas  macro          0.960</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

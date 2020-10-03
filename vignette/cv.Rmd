@@ -1,0 +1,162 @@
+---
+title: "Cross validation evaluation using `tidymodels`"
+author: "Kevin Wang"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{CV}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Summary 
+
+The main purpose of this vignette is to write down some basic codes to understand the `tidymodels` framework. While I do understand and appreciate many tutorials on `tidymodels`, one thing that I can't quite get over is how do each individual package in this framework operate on its own. It is my personal habit to get an idea of what are the main functions and the main classes in a package before using it in my workflow.  
+
+## An overview of packages
+
++ `rsample`: the main purpose is to split samples (e.g. cross-validation, bootstrap etc) in an efficient way. One of the main class object is `rsplit`, which is a flexible way of storing the indices of the train/test data splits. The realisation (turning the indices of a data.frame into data.frame that can be used by other function) functions include `analysis`/`assessment`. 
+
++ `recipes`: the main purpose is to provide a whole collection of pre-processing functions. This helps us to standardise our data when being trained.  
+
++ `parsnip`: the main purpose is to provide a whole collection of modelling functions. One of the main advantages of this package is the unified interface/parameters. 
++ `yardstick`: the main purpose is to provide a whole collection of metrics evaluation functions. 
+
+# Loading packages 
+
+```{r}
+library(tidymodels)
+library(palmerpenguins)
+library(tidyverse)
+```
+
+# Quick checks of the data
+```{r}
+head(penguins)
+
+## Note the missing values
+penguins %>% purrr::map_dbl(~ .x %>% is.na %>% mean)
+```
+
+# Demo of `rsample`
+
+In the past few years, my go-to function to perform cross-validation was `createDataPartition` from `caret`. However, this function returns a list of indices which is not always easy to manipulate if I want to do some quick experimentations. 
+
+`rsample` provides a new class `rsplit`, which stores the indices similar to what `caret` can produce. However, the package also provides realisation functions that when it is applied on a `rsplit` object, returns the corresponging data.frame. In my opinion, this is a lot tidier than creating indices and do the subsetting of data. 
+
+```{r}
+library(rsample)
+penguins_split = rsample::initial_split(penguins, prop = 0.2)
+print(penguins_split)
+class(penguins_split)
+
+analysis(penguins_split)
+assessment(penguins_split)
+
+## Alternatives
+training(penguins_split)
+testing(penguins_split)
+```
+
+# Demo of `recipes`
+
+I think most data scientists can agree that a good model cannot exist without a well-cleaned data with appropriate transformations applied on it. And these data cleaning steps are usually more time-consuming than the actual statistical modelling. 
+
+To me, the `recipes` package operates under the assumption that the modelling aim is not independent of the data cleaning process. And one of the ways that this is reflect is through the `recipe` class object and how it is initialised with a formula. 
+
+```{r}
+library(recipes)
+penguins_rec = recipe(species ~ ., data = penguins_split)
+print(penguins_rec)
+class(penguins_rec)
+```
+
+Note: `identical(recipe(species ~ ., data = training(penguins_split)), penguins_rec)` is `TRUE`. The authors of `tidymodels` pointed out that the `recipe` object has this `data = ` argument only to catalog the names of the variables and their types. 
+
+From this point on, the pre-processing steps applied will operate on this `recipe` object by appending all the pre-processing steps to it. 
+
+A major advantage of this class is that the selection of columns to undergo transformations accepts `dplyr`-style selection. Some example include:
+
++ use basic variable names (e.g. `x1`, `x2`),
++ `dplyr` functions for selecting variables: `contains`, `ends_with`, `everything`, `matches`, `num_range`, and `starts_with`,
++ functions that subset on the role of the variables that have been specified so far: `all_outcomes`, `all_predictors`, `has_role`, or
++ similar functions for the type of data: `all_nominal`, `all_numeric`, and `has_type.`
+
+```{r}
+penguins_rec %>% 
+  step_knnimpute(all_predictors())
+
+penguins_rec %>% 
+  step_knnimpute(all_numeric)
+```
+
+We know that this `penguins` data has some missing values, so we will use the `step_knnimpute` function. 
+
+```{r}
+penguins_rec = penguins_rec %>% 
+  step_knnimpute(all_predictors())
+
+penguins_rec
+```
+
+When the code above is executed, nothing is really performed on the data itself. Because this object is only a "recipe", you only record what are the steps to be applied to get a result out, but no steps are actually performed on the data yet. 
+
+If you want to get the transformed **training** data, you can use the `prep` and `bake` functions. The `prep` function updates the `recipe` with some estimates after the transformation is applied. The `bake` function extracts the final training set as a data.frame/tibble. 
+
+```{r}
+penguins_prep = penguins_rec %>% prep()
+penguins_prep %>% class()
+penguins_prep %>% bake(new_data = NULL)
+```
+
+Note: `bake` has a `new_data` parameter so that the recipe can be applied to non-training data. As of `recipes` version 0.1.14, **`juice()` is superseded** in favor of `bake(object, new_data = NULL)`.
+
+```{r}
+identical(
+  penguins_prep %>% juice(),
+  penguins_prep %>% bake(new_data = NULL))
+```
+
+
+# Demo of `parsnip`
+
+Different R packages can implement the same machine learning algorithm in different ways with different parameters. One of the advantages of `parsnip` is to unify the inputs/outputs of these functions. A single function can be used to initialise and define what model will be fitted and then an engine can be set to pass on the appropriate parameters to the backend implementation. 
+
+```{r}
+penguins_train = penguins_prep %>% bake(new_data = NULL)
+penguins_test = penguins_prep %>% bake(new_data = testing(penguins_split))
+
+rf_model = rand_forest() %>%
+  set_args(trees = 100) %>% 
+  set_engine("randomForest") %>% 
+  set_mode("classification")
+
+penguins_rf = rf_model %>% 
+  fit(formula = species ~ ., data = penguins_train)
+
+penguins_pred = penguins_test %>% bind_cols(
+  predict(penguins_rf, new_data = penguins_test, type = "class"), 
+  predict(penguins_rf, new_data = penguins_test, type = "prob"))
+
+penguins_pred
+```
+
+# Demo of `yardstick`
+
+`yardstick` provides functions that evaluate classification problems. 
+
+```{r}
+library(yardstick)
+
+f_meas(data = penguins_pred, 
+       truth = species, 
+       estimate = .pred_class)
+```
+
+
+# Some useful links
++ https://www.tidymodels.org/learn/
++ https://www.tidymodels.org/start/models/
++ https://workflows.tidymodels.org/articles/extras/getting-started.html
++ http://www.rebeccabarter.com/blog/2020-03-25_machine_learning/
++ https://rviews.rstudio.com/2019/06/19/a-gentle-intro-to-tidymodels/

@@ -44,9 +44,7 @@ plot_RLE = function(exprsMatrix){
           axis.text.x = element_text(angle = 90))
 
 
-  result = list(
-    rlePlotdf = rlePlotdf,
-    rlePlot = rlePlot
-  )
+  result = rlePlot
+  attr(result, "plotdf") = rlePlotdf
   return(result)
 }

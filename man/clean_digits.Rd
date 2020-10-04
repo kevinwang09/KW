@@ -4,12 +4,14 @@
 \alias{clean_digits}
 \title{Clean the digits in a data frame}
 \usage{
-clean_digits(df, digits = 2)
+clean_digits(df, digits = 2, method = c("round", "signif"))
 }
 \arguments{
 \item{df}{A data frame with numbers and categorical variables}
 
 \item{digits}{Number of significant figures}
+
+\item{method}{Either "round" or "signif"}
 }
 \value{
 A data frame with less digits

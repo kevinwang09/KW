@@ -3,7 +3,7 @@
 #' @param y a vector
 #' @importFrom rsample vfold_cv analysis assessment
 #' @importFrom purrr map map2_dbl
-#' @importFrom dplyr mutate select
+#' @importFrom dplyr mutate select %>%
 #' @importFrom tidyr unnest
 #' @importFrom broom augment
 #' @examples

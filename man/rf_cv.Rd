@@ -4,7 +4,7 @@
 \alias{rf_cv}
 \title{Performing CV using random forest}
 \usage{
-rf_cv(cv_obj)
+rf_cv(cv_obj, ...)
 }
 \arguments{
 \item{cv_obj}{outputs of the cvPartition function}
@@ -15,7 +15,23 @@ Performing CV using random forest
 \examples{
 x = iris[51:150, -5]
 y = factor(iris[51:150, 5])
-cv_obj = cv_partition(x = x, y = y, nfolds = 5)
+dat = data.frame(x, y)
+library(tidymodels)
+
+## Making rsplit objects in a tibble
+cv_obj = rsample::vfold_cv(data = dat, v = 5, repeats = 10)
+
+## Specify RF model through parsnip
+rf_model = rand_forest() \%>\%
+set_args(trees = 100) \%>\%
+set_engine("randomForest") \%>\%
+set_mode("classification")
+
+## Fitting model
+rf_model \%>\%
+ fit(formula = Species ~ ., data = cv_obj)
+
+#### cv_obj = cv_partition(x = x, y = y, nfolds = 5)
 rf_cv(cv_obj)
 }
 \author{

@@ -8,15 +8,31 @@
 #' @examples
 #' x = iris[51:150, -5]
 #' y = factor(iris[51:150, 5])
-#' cv_obj = cv_partition(x = x, y = y, nfolds = 5)
+#' dat = data.frame(x, y)
+#' library(tidymodels)
+#'
+#' ## Making rsplit objects in a tibble
+#' cv_obj = rsample::vfold_cv(data = dat, v = 5, repeats = 10)
+#'
+#' ## Specify RF model through parsnip
+#' rf_model = rand_forest() %>%
+#' set_args(trees = 100) %>%
+#' set_engine("randomForest") %>%
+#' set_mode("classification")
+#'
+#' ## Fitting model
+#' rf_model %>%
+#'  fit(formula = Species ~ ., data = cv_obj)
+#'
+#' #### cv_obj = cv_partition(x = x, y = y, nfolds = 5)
 #' rf_cv(cv_obj)
-rf_cv = function(cv_obj){
+rf_cv = function(cv_obj, ...){
   ## This looks at each pairings of training data (a total of nfolds pairings) and create a random forest model
   rf_objs = purrr::map2(.x = cv_obj$train_x,
                         .y = cv_obj$train_y,
                         ~ randomForest::randomForest(
                           x = .x,
-                          y = factor(.y)))
+                          y = factor(.y)), ....)
 
   ## prediction are then made on each of the test data. A total of nfolds test data are created.
   ## So the prediction is always on the complement of samples in the training data.

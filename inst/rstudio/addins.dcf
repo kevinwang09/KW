@@ -1,0 +1,4 @@
+Name: Insert roxygenise()
+Description: Inserts `roxygen2::roxygenise()` at the cursor position.
+Binding: insert_roxygenise
+Interactive: false

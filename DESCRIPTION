@@ -1,9 +1,9 @@
-Package: SmokyScotch
+Package: KW
 Type: Package
-Title: I like Scotch and R
+Title: Functions for my own personal use
 Version: 0.6.0
-Authors@R: person("Kevin", "Wang", role = c("aut", "cre"), email = "kevin.wang@sydney.edu.au")
-Maintainer: Kevin Y.X. Wang <kevin.wang@sydney.edu.au>
+Authors@R: person("Kevin", "Wang", role = c("aut", "cre"), email = "kevinwangstats@gmail.com")
+Maintainer: Kevin Y.X. Wang <kevinwangstats@gmail.com>
 Description: Some functions that I have for my own research.
 License: GPL-3
 Encoding: UTF-8
@@ -33,5 +33,6 @@ Imports:
     shiny,
     DT,
     rsample,
-    broom
-RoxygenNote: 7.1.1
+    broom,
+    rstudioapi
+RoxygenNote: 7.1.1.9001

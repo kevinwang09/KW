@@ -1,32 +1,41 @@
 ---
-title: "Kevin Wang's template"
+title: "Kevin's template"
 author: "Kevin Wang"
-date: "`r paste0('Initiated on 2020 Aug 22, compiled on ', format(Sys.time(), '%Y %b %d'))`"
+date: "2021 Apr 06"
 output:
   html_document:
     code_folding: hide
-    fig_height: 12
+    fig_height: 10
     fig_width: 12
     toc: yes
-    number_sections: true
-    toc_depth: 3
-    toc_float: yes
+    number_sections: yes
     theme: paper
+    # keep_md: true
+  pdf_document:
+    toc: yes
+    number_sections: yes
+  word_document: 
+    toc: yes
+    # keep_md: true
+    # reference_docx: "reference.docx"
 editor_options: 
   chunk_output_type: console
 ---
 
-# Summary
-
-# Loading 
-
-## packages
-```{r}
-library(tidyverse)
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, 
+                      warning=FALSE, 
+                      message=FALSE)
 ```
 
-## data
+# Executive summary
 
+```{r, message=FALSE}
+library(tidyverse)
+
+theme_set(theme_bw(18) +
+            theme(legend.position = "bottom"))
+```
 
 
 # Session Info

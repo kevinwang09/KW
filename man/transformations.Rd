@@ -3,25 +3,31 @@
 \name{arcsinh}
 \alias{arcsinh}
 \alias{expit}
+\alias{logit}
 \title{Arcsinh transform}
 \usage{
 arcsinh(x)
 
 expit(x)
+
+logit(x)
 }
 \arguments{
-\item{x}{A vector, but also takes matrix and purely numeric data.frame}
+\item{x}{A number between 0 and 1}
 }
 \description{
 Arcsinh transform
 
 The expit function
+
+The logit function
 }
 \examples{
 set.seed(11)
 x = rnorm(100)
 plot(x, arcsinh(x))
 curve(expit, from = -5, to = 5)
+curve(logit, from = 0.01, to = 0.99)
 }
 \author{
 Kevin Wang

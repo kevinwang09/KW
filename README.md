@@ -1,17 +1,21 @@
-Untitled
-================
+# The KW package 
 
-# SmokyScotch
+[![R-CMD-check](https://github.com/kevinwang09/KW/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinwang09/KW/actions/workflows/R-CMD-check.yaml)
 
-[![R build
-status](https://github.com/kevinwang09/SmokyScotch/workflows/R-CMD-check/badge.svg)](https://github.com/kevinwang09/SmokyScotch/actions)
+```
+devtools::install_github("kevinwang09/KW")
+```
 
-    devtools::install_github("kevinwang09/SmokyScotch")
+This is a package that is intended for my own research and work. It is not intended for wider distribution. 
 
-# Introduction
+# Contents and capabilities
 
-  - Here are some functions that I have for my own research.
-  - Do not distribute outside of Kevin Wang’s laptop, because I can’t
-    guarantee quality of these functions…
-  - As for the name, it is because most of these functions were written
-    when I drink scotch. Sad.
++ An interactive visualisation Shiny app of data using a `ggplot` object. See `KW::ggplot_explorer`.
+
++ An addin function that execute `roxygen2::roxygenise` using keyboard shortcut, see `KW::execute_roxygenise`.
+
++ A series of one-liner functions that speed up typical data processing. 
+
++ R-markdown templates that are useful for data analytics. 
+
++ (experimental) Quick classification and evaluations: a series of functions that are intended to be "one-liners" to create classification results and metrics.

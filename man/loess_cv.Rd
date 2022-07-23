@@ -15,6 +15,9 @@ loess_cv(formula, data, span = seq(0.1, 1, by = 0.1), v = 5, repeats = 2)
 Calculate loess span parameter using cross validation
 }
 \examples{
+library(dplyr)
+library(ggplot2)
+
 data(economics, package="ggplot2")  # load data
 economics$index <- 1:nrow(economics)  # create index variable
 data <- economics[1:80, ]  # retail 80rows for better graphical understanding

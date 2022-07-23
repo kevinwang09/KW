@@ -15,9 +15,9 @@
 ggplot_explorer <- function(uploaded_plot) {
   .GlobalEnv$uploaded_plot <- uploaded_plot
   # on.exit(rm(X, envir = .GlobalEnv))
-  appDir <- system.file("shiny", package = "SmokyScotch")
+  appDir <- system.file("shiny", package = "KW")
   if (appDir == "") {
-    stop("Could not find example directory. Try re-installing `SmokyScotch`.", call. = FALSE)
+    stop("Could not find example directory. Try re-installing `KW`.", call. = FALSE)
   }
   shiny::runApp(appDir, display.mode = "normal")
 }

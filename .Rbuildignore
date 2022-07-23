@@ -7,3 +7,5 @@ logitCV.R
 logitCV_multi.R
 ^README\.Rmd$
 ^docs$
+^_pkgdown\.yml$
+^pkgdown$

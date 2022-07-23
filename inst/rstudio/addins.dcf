@@ -1,4 +1,4 @@
-Name: Insert roxygenise()
-Description: Inserts `roxygen2::roxygenise()` at the cursor position.
-Binding: insert_roxygenise
+Name: Execute roxygenise()
+Description: Execute `roxygen2::roxygenise()` in the RStudio console
+Binding: execute_roxygenise
 Interactive: false

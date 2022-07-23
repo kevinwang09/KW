@@ -6,7 +6,11 @@
 #' @importFrom dplyr mutate select
 #' @importFrom tidyr unnest
 #' @importFrom broom augment
+#' @export
 #' @examples
+#' library(dplyr)
+#' library(ggplot2)
+#'
 #' data(economics, package="ggplot2")  # load data
 #' economics$index <- 1:nrow(economics)  # create index variable
 #' data <- economics[1:80, ]  # retail 80rows for better graphical understanding

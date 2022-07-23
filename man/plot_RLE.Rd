@@ -4,10 +4,10 @@
 \alias{plot_RLE}
 \title{RLE plot}
 \usage{
-plot_RLE(exprsMatrix)
+plot_RLE(exprs_matrix)
 }
 \arguments{
-\item{exprsMatrix}{a matrix}
+\item{exprs_matrix}{a matrix}
 }
 \description{
 RLE plot
@@ -15,12 +15,12 @@ RLE plot
 \examples{
 n = 30
 p = 1000
-exprsMatrix = cbind(
+exprs_matrix = cbind(
 matrix(rnorm((n - 3)*p), nrow = p),
 matrix(rnorm(3*p, mean = 5), nrow = p)
 )
-boxplot(exprsMatrix)
-plot_RLE(exprsMatrix)
+boxplot(exprs_matrix)
+plot_RLE(exprs_matrix)
 }
 \author{
 Kevin Wang

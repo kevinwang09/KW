@@ -1,7 +1,7 @@
 ---
 title: "Kevin's template"
 author: "Kevin Wang"
-date: "2021 Apr 06"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
   html_document:
     code_folding: hide
@@ -11,13 +11,13 @@ output:
     number_sections: yes
     theme: paper
     # keep_md: true
-  pdf_document:
-    toc: yes
-    number_sections: yes
-  word_document: 
-    toc: yes
-    # keep_md: true
-    # reference_docx: "reference.docx"
+  # pdf_document:
+  #   toc: yes
+  #   number_sections: yes
+  # word_document: 
+  #   toc: yes
+  #   # keep_md: true
+  #   # reference_docx: "reference.docx"
 editor_options: 
   chunk_output_type: console
 ---

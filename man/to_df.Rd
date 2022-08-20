@@ -32,6 +32,4 @@ t2df(x)
 }
 \author{
 Kevin Wang
-
-Kevin Wang
 }

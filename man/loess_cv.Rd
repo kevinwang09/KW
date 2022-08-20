@@ -7,9 +7,15 @@
 loess_cv(formula, data, span = seq(0.1, 1, by = 0.1), v = 5, repeats = 2)
 }
 \arguments{
-\item{x}{a vector}
+\item{formula}{see loess()}
 
-\item{y}{a vector}
+\item{data}{see loess()}
+
+\item{span}{see loess()}
+
+\item{v}{Number of CV fold, see rsample::vfold_cv()}
+
+\item{repeats}{NUmber of CV repeats, see rsample::vfold_cv()}
 }
 \description{
 Calculate loess span parameter using cross validation

@@ -1,6 +1,9 @@
 #' @title Calculate loess span parameter using cross validation
-#' @param x a vector
-#' @param y a vector
+#' @param formula see loess()
+#' @param data see loess()
+#' @param span see loess()
+#' @param v Number of CV fold, see rsample::vfold_cv()
+#' @param repeats NUmber of CV repeats, see rsample::vfold_cv()
 #' @importFrom rsample vfold_cv analysis assessment
 #' @importFrom purrr map map2_dbl
 #' @importFrom dplyr mutate select
